@@ -35,8 +35,7 @@ return require('packer').startup(function(use)
   use 'tpope/vim-projectionist'
   use 'tpope/vim-markdown'
   use 'tpope/vim-git'
-  use 'github/copilot.vim'
-  use {'dracula/vim', as = 'dracula'}
+  use {'arcticicestudio/nord-vim', as = 'nord'}
   use {
     'nvim-tree/nvim-tree.lua',
     requires = {

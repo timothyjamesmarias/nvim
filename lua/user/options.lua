@@ -1,4 +1,4 @@
-vim.cmd('colorscheme dracula')
+vim.cmd('colorscheme nord')
 vim.cmd('syntax on')
 
 vim.opt.clipboard = "unnamedplus"
@@ -27,7 +27,7 @@ vim.opt.signcolumn = "yes"
 
 require'nvim-treesitter.configs'.setup {
   -- A list of parser names, or "all" (the five listed parsers should always be installed)
-  ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "ruby", "python", "bash", "json", "yaml", "html", "css", "php", "rust", "javascript", "typescript"},
+  ensure_installed = { "c", "go", "lua", "vim", "vimdoc", "query", "ruby", "python", "bash", "json", "yaml", "html", "css", "php", "rust", "javascript", "typescript"},
 
   -- Install parsers synchronously (only applied to `ensure_installed`)
   sync_install = false,
