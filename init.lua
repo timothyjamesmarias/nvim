@@ -1,9 +1,5 @@
 require("user.remap")
 require("user.plugins")
 require("user.options")
+require("user.plugin_config.init")
 
-require('lualine').setup()
-require("bufferline").setup()
-require("mason").setup()
-require("mason-lspconfig").setup()
-require("nvim-tree").setup()
