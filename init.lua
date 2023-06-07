@@ -14,6 +14,7 @@ vim.keymap.set("n", "<C-h>", ":wincmd h<CR>")
 vim.keymap.set("n", "<C-j>", ":wincmd j<CR>")
 vim.keymap.set("n", "<C-k>", ":wincmd k<CR>")
 vim.keymap.set("n", "<C-n>", ":NvimTreeToggle<CR>")
+vim.keymap.set("n", "<leader>vv", ":vsp<CR>")
 
 local builtin = require('telescope.builtin')
 vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
@@ -32,13 +33,19 @@ vim.cmd [[packadd packer.nvim]]
 require('packer').startup(function(use)
   use 'wbthomason/packer.nvim'
   use { "nvim-telescope/telescope.nvim", requires = "nvim-lua/plenary.nvim" }
+  use  "jose-elias-alvarez/null-ls.nvim"
   use {
     'nvim-lualine/lualine.nvim',
     requires = { 'nvim-tree/nvim-web-devicons', opt = true }
   }
-  use "neovim/nvim-lspconfig"
+  use { 
+    "williamboman/mason.nvim", 
+    "williamboman/mason-lspconfig.nvim", 
+    "neovim/nvim-lspconfig", 
+  } 
   use ('nvim-treesitter/nvim-treesitter', {run = ':TSUpdate'})
   use {'akinsho/bufferline.nvim', tag = "v3.*", requires = 'nvim-tree/nvim-web-devicons'}
+  use 'mfussenegger/nvim-dap'
   use 'tpope/vim-commentary'
   use 'tpope/vim-surround'
   use 'tpope/vim-repeat'
@@ -56,7 +63,6 @@ require('packer').startup(function(use)
   use 'tpope/vim-projectionist'
   use 'tpope/vim-markdown'
   use 'tpope/vim-git'
-  use {'arcticicestudio/nord-vim', as = 'nord'}
   use {
     'nvim-tree/nvim-tree.lua',
     requires = {
@@ -66,11 +72,27 @@ require('packer').startup(function(use)
       require("nvim-tree").setup {}
     end
   }
+  use {
+  'maxmx03/solarized.nvim',
+  config = function ()
+    local success, solarized = pcall(require, 'solarized')
+
+    vim.o.background = 'dark'
+
+    solarized:setup {
+      config = {
+        theme = 'neovim',
+        transparent = false
+      }
+    }
+
+    vim.cmd 'colorscheme solarized'
+  end
+}
 end)
 
 --options
 
-vim.cmd('colorscheme nord')
 vim.cmd('syntax on')
 
 vim.opt.clipboard = "unnamedplus"
@@ -80,10 +102,12 @@ vim.opt.relativenumber = true
 vim.opt.termguicolors = true
 vim.opt.smartindent = true
 vim.opt.mouse = a
+vim.opt.spelllang = 'en_us'
+vim.opt.spell = true
 
-vim.opt.tabstop = 4
-vim.opt.softtabstop = 4
-vim.opt.shiftwidth = 4
+vim.opt.tabstop = 2
+vim.opt.softtabstop = 2
+vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
 
 vim.opt.swapfile = false
@@ -115,4 +139,15 @@ require("mason-lspconfig").setup()
 require('lualine').setup()
 require("bufferline").setup()
 require("nvim-tree").setup()
+require("mason-lspconfig").setup_handlers {
+    function (server_name) -- default handler (optional)
+        require("lspconfig")[server_name].setup {}
+    end
+}
+-- local null_ls = require("null-ls")
+
+-- null_ls.setup({
+--     sources = {
+--     },
+-- })
 
