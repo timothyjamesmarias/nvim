@@ -1,12 +1,12 @@
 --remaps
 vim.g.mapleader = " "
 vim.keymap.set("n", "<leader>w", ":w<CR>")
+vim.keymap.set("n", ";", ":")
 vim.keymap.set("i", "jj", "<Esc>")
 vim.keymap.set("n", "<Tab>", ":bnext<CR>")
 vim.keymap.set("n", "<S-Tab>", ":bprevious<CR>")
 vim.keymap.set("n", "<leader>t", ":enew<CR>")
-vim.keymap.set("n", "<leader>qq", ":q!<CR>")
-vim.keymap.set("n", "ZZ", ":bd<CR>")
+vim.keymap.set("n", "<leader>q", ":bd<CR>")
 vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
 vim.keymap.set("n", "<C-l>", ":wincmd l<CR>")
@@ -14,6 +14,7 @@ vim.keymap.set("n", "<C-h>", ":wincmd h<CR>")
 vim.keymap.set("n", "<C-j>", ":wincmd j<CR>")
 vim.keymap.set("n", "<C-k>", ":wincmd k<CR>")
 vim.keymap.set("n", "<C-n>", ":NvimTreeToggle<CR>")
+vim.keymap.set("n", "<leader>g", ":Neogit<CR>")
 vim.keymap.set("n", "<leader>vv", ":vsp<CR>")
 
 local builtin = require('telescope.builtin')
@@ -56,24 +57,22 @@ vim.api.nvim_create_autocmd('LspAttach', {
   end,
 })
 
--- plugins
-vim.cmd [[packadd packer.nvim]]
-
+--plugins
 require('packer').startup(function(use)
   use 'wbthomason/packer.nvim'
   use { "nvim-telescope/telescope.nvim", requires = "nvim-lua/plenary.nvim" }
-  use  "jose-elias-alvarez/null-ls.nvim"
+  use "jose-elias-alvarez/null-ls.nvim"
   use {
     'nvim-lualine/lualine.nvim',
     requires = { 'nvim-tree/nvim-web-devicons', opt = true }
   }
-  use { 
-    "williamboman/mason.nvim", 
-    "williamboman/mason-lspconfig.nvim", 
-    "neovim/nvim-lspconfig", 
-  } 
-  use ('nvim-treesitter/nvim-treesitter', {run = ':TSUpdate'})
-  use {'akinsho/bufferline.nvim', tag = "v3.*", requires = 'nvim-tree/nvim-web-devicons'}
+  use {
+    "williamboman/mason.nvim",
+    "williamboman/mason-lspconfig.nvim",
+    "neovim/nvim-lspconfig",
+  }
+  use('nvim-treesitter/nvim-treesitter', { run = ':TSUpdate' })
+  use { 'akinsho/bufferline.nvim', tag = "v3.*", requires = 'nvim-tree/nvim-web-devicons' }
   use 'mfussenegger/nvim-dap'
   use 'tpope/vim-commentary'
   use 'tpope/vim-surround'
@@ -102,30 +101,36 @@ require('packer').startup(function(use)
     end
   }
   use {
-  'maxmx03/solarized.nvim',
-  config = function ()
-    local success, solarized = pcall(require, 'solarized')
-
-    vim.o.background = 'dark'
-
-    solarized:setup {
-      config = {
-        theme = 'neovim',
-        transparent = false
+    "mcchrish/zenbones.nvim",
+    requires = "rktjmp/lush.nvim"
+  }
+  use {
+    "NeogitOrg/neogit",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-telescope/telescope.nvim",
+      "sindrets/diffview.nvim",
+    },
+    config = true
+  }
+  use {
+    "folke/which-key.nvim",
+    config = function()
+      vim.o.timeout = true
+      vim.o.timeoutlen = 300
+      require("which-key").setup {
       }
-    }
-
-    vim.cmd 'colorscheme solarized'
-  end
-}
+    end
+  }
 end)
 
 --options
 
+vim.cmd('colorscheme zenbones')
 vim.cmd('syntax on')
 
 vim.opt.clipboard = "unnamedplus"
-
+vim.opt.background = "dark"
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.termguicolors = true
@@ -151,7 +156,7 @@ vim.opt.termguicolors = true
 vim.opt.signcolumn = "yes"
 
 require 'nvim-treesitter.configs'.setup {
-  ensure_installed = { "c", "go", "lua", "vim", "vimdoc", "query", "ruby", "python", "bash", "json", "yaml", "html", "css", "php", "rust", "javascript", "typescript"},
+  ensure_installed = { "c", "lua", "vim", "vimdoc", "python", "bash", "json", "yaml", "html", "css" },
 
   sync_install = false,
 
@@ -165,26 +170,66 @@ require 'nvim-treesitter.configs'.setup {
 
 require("mason").setup()
 require("mason-lspconfig").setup()
-require('lualine').setup()
+require('lualine').setup {
+  options = {
+    icons_enabled = true,
+    theme = 'auto',
+    component_separators = { left = '|', right = '|' },
+    section_separators = { left = '', right = '' },
+    disabled_filetypes = {
+      statusline = {},
+      winbar = {},
+    },
+    ignore_focus = {},
+    always_divide_middle = true,
+    globalstatus = false,
+    refresh = {
+      statusline = 1000,
+      tabline = 1000,
+      winbar = 1000,
+    }
+  },
+  sections = {
+    lualine_a = { 'mode' },
+    lualine_b = { 'branch', 'diff', 'diagnostics' },
+    lualine_c = { 'filename' },
+    lualine_x = { 'filetype' },
+    lualine_y = { 'progress' },
+    lualine_z = { 'location' }
+  },
+  inactive_sections = {
+    lualine_a = {},
+    lualine_b = {},
+    lualine_c = { 'filename' },
+    lualine_x = { 'location' },
+    lualine_y = {},
+    lualine_z = {}
+  },
+  tabline = {},
+  winbar = {},
+  inactive_winbar = {},
+  extensions = {}
+}
 require("bufferline").setup()
 require("nvim-tree").setup()
 require("mason-lspconfig").setup()
+local neogit = require("neogit")
+neogit.setup {}
 local lspconfig = require('lspconfig')
 local util = require("lspconfig/util")
 lspconfig.tsserver.setup {}
 lspconfig.lua_ls.setup {}
 lspconfig.solargraph.setup {}
 lspconfig.gopls.setup {
-    cmd = {"gopls", "serve"},
-    filetypes = {"go", "gomod"},
-    root_dir = util.root_pattern("go.work", "go.mod", ".git"),
-    settings = {
-      gopls = {
-        analyses = {
-          unusedparams = true,
-        },
-        staticcheck = true,
+  cmd = { "gopls", "serve" },
+  filetypes = { "go", "gomod" },
+  root_dir = util.root_pattern("go.work", "go.mod", ".git"),
+  settings = {
+    gopls = {
+      analyses = {
+        unusedparams = true,
       },
+      staticcheck = true,
     },
-  }
-
+  },
+}
