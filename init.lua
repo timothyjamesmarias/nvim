@@ -156,7 +156,7 @@ vim.opt.termguicolors = true
 vim.opt.signcolumn = "yes"
 
 require 'nvim-treesitter.configs'.setup {
-  ensure_installed = { "c", "lua", "vim", "vimdoc", "python", "bash", "json", "yaml", "html", "css" },
+  ensure_installed = { "c", "lua", "vim", "vimdoc", "bash", "json", "yaml", "html", "css" },
 
   sync_install = false,
 
@@ -175,7 +175,7 @@ require('lualine').setup {
     icons_enabled = true,
     theme = 'auto',
     component_separators = { left = '|', right = '|' },
-    section_separators = { left = '', right = '' },
+    section_separators = { left = '', right = '' },
     disabled_filetypes = {
       statusline = {},
       winbar = {},
@@ -210,7 +210,8 @@ require('lualine').setup {
   inactive_winbar = {},
   extensions = {}
 }
-require("bufferline").setup()
+require("bufferline").setup {
+}
 require("nvim-tree").setup()
 require("mason-lspconfig").setup()
 local neogit = require("neogit")
@@ -218,4 +219,4 @@ neogit.setup {}
 local lspconfig = require('lspconfig')
 lspconfig.tsserver.setup {}
 lspconfig.lua_ls.setup {}
-lspconfig.solargraph.setup {}
+lspconfig.ruby_ls.setup {}
