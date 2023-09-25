@@ -1,5 +1,6 @@
 {
   "bufferline.nvim": { "branch": "main", "commit": "6ecd37e0fa8b156099daedd2191130e083fb1490" },
+  "copilot.vim": { "branch": "release", "commit": "998cf5ab1b85e844c7e8edb864a997e590df7182" },
   "diffview.nvim": { "branch": "main", "commit": "a111d19ccceac6530448d329c63f998f77b5626e" },
   "fzf-lua": { "branch": "main", "commit": "335f908b912504015fefeeccacb4c325029d2bfc" },
   "git-blame.nvim": { "branch": "master", "commit": "a36b277e527f9d34efe16c3636555ce0e0c0464c" },

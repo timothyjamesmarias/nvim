@@ -292,6 +292,9 @@ require("lazy").setup({
       startup.setup({theme = "dashboard"})
     end
   },
+  {
+    "github/copilot.vim",
+  },
 })
 
 -- options
