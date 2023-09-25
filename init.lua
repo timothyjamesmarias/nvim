@@ -145,11 +145,11 @@ require("lazy").setup({
         vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action)
         vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename)
         vim.keymap.set("n", "<leader>D", ":Telescope diagnostics bufnr=0<CR>")
-        vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, opts)
-        vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
-        vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
-        vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
-        vim.keymap.set("n", "<leader>rs", ":LspRestart<CR>", opts)
+        vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float)
+        vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
+        vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
+        vim.keymap.set("n", "K", vim.lsp.buf.hover)
+        vim.keymap.set("n", "<leader>rs", ":LspRestart<CR>")
         vim.keymap.set('n', '<space>f', function()
           vim.lsp.buf.format { async = true }
         end)
@@ -269,9 +269,6 @@ require("lazy").setup({
     end
   },
   {
-    'f-person/git-blame.nvim'
-  },
-  {
     'akinsho/bufferline.nvim',
     version = "*",
     dependencies = 'nvim-tree/nvim-web-devicons',
@@ -282,19 +279,31 @@ require("lazy").setup({
     end
   },
   {
-    "airblade/vim-gitgutter"
-  },
-  {
     "startup-nvim/startup.nvim",
-    dependencies = {"nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim"},
+    dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
     config = function()
       local startup = require("startup")
-      startup.setup({theme = "dashboard"})
+      startup.setup({ theme = "dashboard" })
     end
   },
   {
     "github/copilot.vim",
   },
+  {
+    "lewis6991/gitsigns.nvim",
+    config = function()
+      local gitsigns = require("gitsigns")
+      gitsigns.setup({
+        current_line_blame = true,
+        current_line_blame_opts = {
+          virt_text = true,
+          virt_text_pos = 'eol',
+          delay = 0,
+          ignore_whitespace = false,
+        },
+      })
+    end
+  }
 })
 
 -- options
