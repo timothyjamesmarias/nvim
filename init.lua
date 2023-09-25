@@ -132,9 +132,12 @@ require("lazy").setup({
     lazy = false,
     dependencies = {
       { "antosha417/nvim-lsp-file-operations", config = true },
+      "hrsh7th/nvim-cmp",
+      "hrsh7th/cmp-nvim-lsp",
     },
     config = function()
       local lspconfig = require("lspconfig")
+      local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
       local on_attach = function(client, buffer)
         vim.keymap.set("n", "gr", ":Telescope lsp_references<CR>")
@@ -157,9 +160,11 @@ require("lazy").setup({
 
       lspconfig["html"].setup({
         on_attach = on_attach,
+        capabilities = capabilities,
       })
       lspconfig["lua_ls"].setup({
         on_attach = on_attach,
+        capabilities = capabilities,
         settings = {
           Lua = {
             runtime = {
@@ -182,24 +187,32 @@ require("lazy").setup({
       })
       lspconfig["tsserver"].setup({
         on_attach = on_attach,
+        capabilities = capabilities,
       })
       lspconfig["cssls"].setup({
         on_attach = on_attach,
+        capabilities = capabilities,
       })
-      lspconfig["ruby_ls"].setup({
+      lspconfig["solargraph"].setup({
         on_attach = on_attach,
+        capabilities = capabilities,
+        filetypes = { "ruby", "slim", "erb", "rake" },
       })
       lspconfig["bashls"].setup({
         on_attach = on_attach,
+        capabilities = capabilities,
       })
       lspconfig["dockerls"].setup({
         on_attach = on_attach,
+        capabilities = capabilities,
       })
       lspconfig["marksman"].setup({
         on_attach = on_attach,
+        capabilities = capabilities,
       })
       lspconfig["intelephense"].setup({
         on_attach = on_attach,
+        capabilities = capabilities,
       })
     end
   },
