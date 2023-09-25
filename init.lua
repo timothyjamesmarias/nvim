@@ -35,11 +35,16 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
   {
-    "mcchrish/zenbones.nvim",
+    "navarasu/onedark.nvim",
     lazy = false,
     priority = 1000,
     config = function()
-      vim.cmd([[colorscheme zenbones]])
+      local onedark = require("onedark")
+      onedark.setup({
+        style = "darker"
+      })
+      onedark.load()
+      vim.cmd([[colorscheme onedark]])
     end
   },
   {
@@ -263,15 +268,10 @@ require("lazy").setup({
       })
     end
   },
+
   {
     'f-person/git-blame.nvim'
   },
-  {
-    "tpope/vim-fugitive"
-  },
-  {
-
-  }
 })
 
 -- options
