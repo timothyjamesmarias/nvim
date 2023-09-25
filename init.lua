@@ -27,7 +27,7 @@ if not vim.loop.fs_stat(lazypath) then
     "clone",
     "--filter=blob:none",
     "https://github.com/folke/lazy.nvim.git",
-    "--branch=stable", -- latest stable release
+    "--branch=stable",
     lazypath,
   })
 end
@@ -271,6 +271,27 @@ require("lazy").setup({
   {
     'f-person/git-blame.nvim'
   },
+  {
+    'akinsho/bufferline.nvim',
+    version = "*",
+    dependencies = 'nvim-tree/nvim-web-devicons',
+    config = function()
+      local bufferline = require("bufferline")
+      vim.opt.termguicolors = true
+      bufferline.setup()
+    end
+  },
+  {
+    "airblade/vim-gitgutter"
+  },
+  {
+    "startup-nvim/startup.nvim",
+    dependencies = {"nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim"},
+    config = function()
+      local startup = require("startup")
+      startup.setup({theme = "dashboard"})
+    end
+  },
 })
 
 -- options
@@ -285,6 +306,7 @@ vim.opt.smartindent = true
 vim.opt.mouse = a
 vim.opt.spelllang = 'en_us'
 vim.opt.spell = true
+vim.opt.updatetime = 1000
 
 vim.opt.tabstop = 2
 vim.opt.softtabstop = 2
