@@ -477,6 +477,12 @@ require("lazy").setup({
 			vim.keymap.set("n", "<leader>se", ":Telescope session-lens search_session<CR>")
 		end,
 	},
+  {
+    "slim-template/vim-slim",
+    config = function()
+      vim.cmd("au BufNewFile,BufRead *.slim set filetype=slim")
+    end
+  }
 })
 
 -- options
