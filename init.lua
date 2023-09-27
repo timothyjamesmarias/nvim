@@ -456,6 +456,7 @@ require("lazy").setup({
 		dependenceis = {
 			"rmagatti/auto-session",
 			"nvim-telescope/telescope.nvim",
+			"nvim-lualine/lualine.nvim",
 		},
 		config = function()
 			local auto_session = require("auto-session")
@@ -467,6 +468,9 @@ require("lazy").setup({
 				auto_restore_enabled = true,
 				auto_session_root_dir = vim.fn.stdpath("data") .. "/sessions/",
 				auto_session_enabled = true,
+				post_cwd_changed_hook = function()
+					require("lualine").refresh()
+				end,
 			})
 			session_lens.setup({})
 			vim.keymap.set("n", "<leader>se", ":Telescope session-lens search_session<CR>")
@@ -488,6 +492,8 @@ vim.opt.spelllang = "en_us"
 vim.opt.spell = true
 vim.opt.updatetime = 1000
 vim.opt.completeopt = { "menuone", "longest", "preview" }
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
 
 vim.opt.tabstop = 2
 vim.opt.softtabstop = 2
