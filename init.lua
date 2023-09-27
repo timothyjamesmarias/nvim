@@ -181,10 +181,15 @@ require("lazy").setup({
 					},
 				},
 			})
-			lspconfig["tsserver"].setup({
+			lspconfig["volar"].setup({
 				on_attach = on_attach,
 				capabilities = capabilities,
+        filetypes = { "vue", "javascript", "typescript", "javascriptreact", "typescriptreact" },
 			})
+      lspconfig["tailwindcss"].setup({
+        on_attach = on_attach,
+        capabilities = capabilities,
+      })
 			lspconfig["cssls"].setup({
 				on_attach = on_attach,
 				capabilities = capabilities,
@@ -256,7 +261,7 @@ require("lazy").setup({
 				},
 				sections = {
 					lualine_a = { "mode" },
-					lualine_b = { "branch", "diff", "diagnostics" },
+					lualine_b = { "branch", "diff", "diagnostics", require("auto-session.lib").current_session_name },
 					lualine_c = { "filename" },
 					lualine_x = { "encoding", "fileformat", "filetype" },
 					lualine_y = { "progress" },
@@ -352,6 +357,31 @@ require("lazy").setup({
 				},
 			})
 			vim.keymap.set("n", "<leader>f", ":Format<CR>")
+		end,
+	},
+	{
+		"mfussenegger/nvim-dap",
+		dependencies = {
+			"rcarriga/nvim-dap-ui",
+			"theHamsta/nvim-dap-virtual-text",
+			"mfussenegger/nvim-dap-python",
+			"nvim-telescope/telescope.nvim",
+			"nvim-telescope/telescope-dap.nvim",
+			"suketa/nvim-dap-ruby",
+		},
+		config = function() end,
+	},
+	{
+		"rmagatti/auto-session",
+		dependenceis = {
+			"rmagatti/session-lens",
+		},
+		config = function()
+			local auto_session = require("auto-session")
+			auto_session.setup({
+				log_level = "error",
+				auto_session_suppress_dirs = { "~/", "~/projects", "~/Downloads", "/" },
+			})
 		end,
 	},
 })
