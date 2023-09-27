@@ -143,7 +143,7 @@ require("lazy").setup({
 				vim.keymap.set("n", "gD", vim.lsp.buf.declaration)
 				vim.keymap.set("n", "gd", ":Telescope lsp_definitions<CR>")
 				vim.keymap.set("n", "gi", ":Telescope lsp_implementations<CR>")
-				vim.keymap.set("n", "gt", "<cmd>Telescope lsp_type_definitions<CR>")
+				vim.keymap.set("n", "gt", ":Telescope lsp_type_definitions<CR>")
 				vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action)
 				vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename)
 				vim.keymap.set("n", "<leader>D", ":Telescope diagnostics bufnr=0<CR>")
@@ -184,12 +184,12 @@ require("lazy").setup({
 			lspconfig["volar"].setup({
 				on_attach = on_attach,
 				capabilities = capabilities,
-        filetypes = { "vue", "javascript", "typescript", "javascriptreact", "typescriptreact" },
+				filetypes = { "vue", "javascript", "typescript", "javascriptreact", "typescriptreact" },
 			})
-      lspconfig["tailwindcss"].setup({
-        on_attach = on_attach,
-        capabilities = capabilities,
-      })
+			lspconfig["tailwindcss"].setup({
+				on_attach = on_attach,
+				capabilities = capabilities,
+			})
 			lspconfig["cssls"].setup({
 				on_attach = on_attach,
 				capabilities = capabilities,
@@ -238,6 +238,9 @@ require("lazy").setup({
 	},
 	{
 		"nvim-lualine/lualine.nvim",
+		dependencies = {
+			"rmagatti/auto-session",
+		},
 		config = function()
 			local lualine = require("lualine")
 			lualine.setup({
@@ -372,16 +375,24 @@ require("lazy").setup({
 		config = function() end,
 	},
 	{
-		"rmagatti/auto-session",
+		"rmagatti/session-lens",
 		dependenceis = {
-			"rmagatti/session-lens",
+			"rmagatti/auto-session",
+			"nvim-telescope/telescope.nvim",
 		},
 		config = function()
 			local auto_session = require("auto-session")
+			local session_lens = require("session-lens")
 			auto_session.setup({
 				log_level = "error",
 				auto_session_suppress_dirs = { "~/", "~/projects", "~/Downloads", "/" },
+				auto_session_use_git_branch = true,
+				auto_restore_enabled = true,
+				auto_session_root_dir = vim.fn.stdpath("data") .. "/sessions/",
+				auto_session_enabled = true,
 			})
+			session_lens.setup({})
+			vim.keymap.set("n", "<leader>s", ":Telescope session-lens search_session<CR>")
 		end,
 	},
 })
