@@ -5,19 +5,20 @@ vim.g.loaded_netrwPlugin = 1
 vim.g.mapleader = " "
 vim.keymap.set("n", "<leader>w", ":w<CR>")
 vim.keymap.set("n", ";", ":")
-vim.keymap.set("i", "jj", "<Esc>")
-vim.keymap.set("n", "<Tab>", ":bnext<CR>")
-vim.keymap.set("n", "<S-Tab>", ":bprevious<CR>")
-vim.keymap.set("n", "<leader>t", ":enew<CR>")
-vim.keymap.set("n", "<leader>q", ":bd<CR>")
-vim.keymap.set("n", "n", "nzzzv")
-vim.keymap.set("n", "N", "Nzzzv")
-vim.keymap.set("n", "<C-l>", ":wincmd l<CR>")
-vim.keymap.set("n", "<C-h>", ":wincmd h<CR>")
-vim.keymap.set("n", "<C-j>", ":wincmd j<CR>")
-vim.keymap.set("n", "<C-k>", ":wincmd k<CR>")
-vim.keymap.set("n", "<leader>g", ":Neogit<CR>")
-vim.keymap.set("n", "<leader>vv", ":vsp<CR>")
+vim.keymap.set("i", "jj", "<Esc>", { silent = true })
+vim.keymap.set("n", "<Tab>", ":bnext<CR>", { silent = true })
+vim.keymap.set("n", "<S-Tab>", ":bprevious<CR>", { silent = true })
+vim.keymap.set("n", "<leader>t", ":enew<CR>", { silent = true })
+vim.keymap.set("n", "<leader>q", ":bd<CR>", { silent = true })
+vim.keymap.set("n", "n", "nzzzv", { silent = true })
+vim.keymap.set("n", "N", "Nzzzv", { silent = true })
+vim.keymap.set("n", "<C-l>", ":wincmd l<CR>", { silent = true })
+vim.keymap.set("n", "<C-h>", ":wincmd h<CR>", { silent = true })
+vim.keymap.set("n", "<C-j>", ":wincmd j<CR>", { silent = true })
+vim.keymap.set("n", "<C-k>", ":wincmd k<CR>", { silent = true })
+vim.keymap.set("n", "<leader>g", ":Neogit<CR>", { silent = true })
+vim.keymap.set("n", "<leader>vv", ":vsp<CR>", { silent = true })
+vim.keymap.set("n", "<leader>ss", "/")
 
 -- plugins
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -55,7 +56,7 @@ require("lazy").setup({
 		config = function()
 			local nvimtree = require("nvim-tree")
 			nvimtree.setup()
-			vim.keymap.set("n", "<C-n>", ":NvimTreeToggle<CR>")
+			vim.keymap.set("n", "<C-n>", ":NvimTreeToggle<CR>", { silent = true })
 		end,
 	},
 	{
@@ -104,10 +105,10 @@ require("lazy").setup({
 		dependencies = { "nvim-lua/plenary.nvim" },
 		config = function()
 			local builtin = require("telescope.builtin")
-			vim.keymap.set("n", "<leader>ff", builtin.find_files, {})
-			vim.keymap.set("n", "<leader>fg", builtin.live_grep, {})
-			vim.keymap.set("n", "<leader>fb", builtin.buffers, {})
-			vim.keymap.set("n", "<leader>fh", builtin.help_tags, {})
+			vim.keymap.set("n", "<leader>ff", builtin.find_files, { silent = true })
+			vim.keymap.set("n", "<leader>fg", builtin.live_grep, { silent = true })
+			vim.keymap.set("n", "<leader>fb", builtin.buffers, { silent = true })
+			vim.keymap.set("n", "<leader>fh", builtin.help_tags, { silent = true })
 		end,
 	},
 	{
@@ -233,7 +234,7 @@ require("lazy").setup({
 		config = function()
 			local neogit = require("neogit")
 			neogit.setup({})
-			vim.keymap.set("n", "<leader>g<CR>", ":Neogit")
+			vim.keymap.set("n", "<leader>g<CR>", ":Neogit", { silent = true })
 		end,
 	},
 	{
@@ -266,7 +267,7 @@ require("lazy").setup({
 					lualine_a = { "mode" },
 					lualine_b = { "branch", "diff", "diagnostics", require("auto-session.lib").current_session_name },
 					lualine_c = { "filename" },
-					lualine_x = { "encoding", "fileformat", "filetype" },
+					lualine_x = { "searchcount", "fileformat", "filetype" },
 					lualine_y = { "progress" },
 					lualine_z = { "location" },
 				},
@@ -292,7 +293,25 @@ require("lazy").setup({
 		config = function()
 			local bufferline = require("bufferline")
 			vim.opt.termguicolors = true
-			bufferline.setup()
+			bufferline.setup({
+				options = {
+					diagnostics = "nvim_lsp",
+					diagnostics_indicator = function(count, level, diagnostics_dict, context)
+						local icon = level:match("error") and " " or " "
+						return " " .. icon .. count
+					end,
+					separator_style = "slant",
+					tab_size = 20,
+					offsets = {
+						{
+							filetype = "NvimTree",
+							text = "File Explorer",
+							highlight = "Directory",
+							separator = true,
+						},
+					},
+				},
+			})
 		end,
 	},
 	{
@@ -359,7 +378,7 @@ require("lazy").setup({
 					},
 				},
 			})
-			vim.keymap.set("n", "<leader>f", ":Format<CR>")
+			vim.keymap.set("n", "<leader>f", ":Format<CR>", { silent = true })
 		end,
 	},
 	{
@@ -392,7 +411,7 @@ require("lazy").setup({
 				auto_session_enabled = true,
 			})
 			session_lens.setup({})
-			vim.keymap.set("n", "<leader>s", ":Telescope session-lens search_session<CR>")
+			vim.keymap.set("n", "<leader>se", ":Telescope session-lens search_session<CR>")
 		end,
 	},
 })
