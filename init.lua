@@ -8,7 +8,7 @@ vim.keymap.set("n", ";", ":")
 vim.keymap.set("i", "jj", "<Esc>", { silent = true })
 vim.keymap.set("n", "<Tab>", ":bnext<CR>", { silent = true })
 vim.keymap.set("n", "<S-Tab>", ":bprevious<CR>", { silent = true })
-vim.keymap.set("n", "<leader>t", ":enew<CR>", { silent = true })
+vim.keymap.set("n", "<leader>n", ":enew<CR>", { silent = true })
 vim.keymap.set("n", "<leader>q", ":bd<CR>", { silent = true })
 vim.keymap.set("n", "n", "nzzzv", { silent = true })
 vim.keymap.set("n", "N", "Nzzzv", { silent = true })
@@ -36,11 +36,11 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
 	{
-		"Mofiqul/dracula.nvim",
+		"folke/tokyonight.nvim",
 		lazy = false,
 		priority = 1000,
 		config = function()
-			vim.cmd([[colorscheme dracula]])
+			vim.cmd([[colorscheme tokyonight]])
 		end,
 	},
 	{
@@ -60,6 +60,10 @@ require("lazy").setup({
 		build = ":TSUpdate",
 		dependencies = {
 			"windwp/nvim-ts-autotag",
+			"JoosepAlviste/nvim-ts-context-commentstring",
+			"EmranMR/tree-sitter-blade",
+			"HiPhish/nvim-ts-rainbow2",
+			"nvim-treesitter/nvim-treesitter-context",
 		},
 		config = function()
 			local treesitter = require("nvim-treesitter.configs")
@@ -70,27 +74,28 @@ require("lazy").setup({
 				modules = {},
 				indent = { enable = true },
 				autotag = { enable = true },
-				ensure_installed = {
-					"json",
-					"javascript",
-					"typescript",
-					"yaml",
-					"html",
-					"css",
-					"markdown",
-					"markdown_inline",
-					"bash",
-					"lua",
-					"vim",
-					"dockerfile",
-					"gitignore",
-					"ruby",
-					"php",
-					"c",
-					"cpp",
-					"python",
-				},
+				ensure_installed = "all",
 				auto_install = true,
+				context_commentstring = {
+					enable = true,
+				},
+				textobjects = {
+					select = {
+						enable = true,
+						lookahead = true,
+						keymaps = {
+							["af"] = "@function.outer",
+							["if"] = "@function.inner",
+							["aa"] = "@class.outer",
+							["ia"] = "@class.inner",
+						},
+					},
+				},
+				rainbow = {
+					enable = true,
+					extended_mode = true,
+					strategy = require("ts-rainbow").strategy.global,
+				},
 			})
 		end,
 	},
@@ -157,7 +162,6 @@ require("lazy").setup({
 				vim.keymap.set("n", "gt", ":Telescope lsp_type_definitions<CR>")
 				vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action)
 				vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename)
-				vim.keymap.set("n", "<leader>D", ":Telescope diagnostics bufnr=0<CR>")
 				vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float)
 				vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
 				vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
@@ -478,6 +482,23 @@ require("lazy").setup({
 			vim.cmd("au BufNewFile,BufRead *.slim set filetype=slim")
 		end,
 	},
+	{
+		"voldikss/vim-floaterm",
+		config = function()
+			vim.keymap.set("n", "<leader>tt", ":FloatermToggle<CR>")
+			vim.keymap.set("t", "<leader>tt", "<C-\\><C-n>:FloatermToggle<CR>")
+		end,
+	},
+	{
+		"folke/twilight.nvim",
+	},
+  {
+    "folke/trouble.nvim",
+    config = function()
+      require("trouble").setup({})
+      vim.keymap.set("n", "<leader>D", ":TroubleToggle<CR>")
+    end,
+  }
 })
 
 -- options
