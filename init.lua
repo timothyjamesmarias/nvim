@@ -62,7 +62,6 @@ require("lazy").setup({
 			"windwp/nvim-ts-autotag",
 			"JoosepAlviste/nvim-ts-context-commentstring",
 			"EmranMR/tree-sitter-blade",
-			"HiPhish/nvim-ts-rainbow2",
 			"nvim-treesitter/nvim-treesitter-context",
 		},
 		config = function()
@@ -90,11 +89,6 @@ require("lazy").setup({
 							["ia"] = "@class.inner",
 						},
 					},
-				},
-				rainbow = {
-					enable = true,
-					extended_mode = true,
-					strategy = require("ts-rainbow").strategy.global,
 				},
 			})
 		end,
@@ -129,6 +123,9 @@ require("lazy").setup({
 			vim.keymap.set("n", "<leader>fb", builtin.buffers, { silent = true })
 			vim.keymap.set("n", "<leader>fh", builtin.help_tags, { silent = true })
 			vim.keymap.set("n", "<leader>sp", builtin.spell_suggest, { silent = true })
+			vim.keymap.set("n", "<leader>gf", builtin.git_files, { silent = true })
+			vim.keymap.set("n", "<leader>gb", builtin.git_branches, { silent = true })
+			vim.keymap.set("n", "<leader>gcm", builtin.git_commits, { silent = true })
 		end,
 	},
 	{
@@ -167,12 +164,6 @@ require("lazy").setup({
 			local cmp = require("cmp")
 			local lspkind = require("lspkind")
 			local luasnip = require("luasnip")
-
-			local has_words_before = function()
-				local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-				return col ~= 0
-					and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
-			end
 
 			local on_attach = function(client, buffer)
 				vim.keymap.set("n", "gr", ":Telescope lsp_references<CR>")
