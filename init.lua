@@ -36,16 +36,11 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
 	{
-		"navarasu/onedark.nvim",
+		"Mofiqul/dracula.nvim",
 		lazy = false,
 		priority = 1000,
 		config = function()
-			local onedark = require("onedark")
-			onedark.setup({
-				style = "darker",
-			})
-			onedark.load()
-			vim.cmd([[colorscheme onedark]])
+			vim.cmd([[colorscheme dracula]])
 		end,
 	},
 	{
@@ -477,12 +472,12 @@ require("lazy").setup({
 			vim.keymap.set("n", "<leader>se", ":Telescope session-lens search_session<CR>")
 		end,
 	},
-  {
-    "slim-template/vim-slim",
-    config = function()
-      vim.cmd("au BufNewFile,BufRead *.slim set filetype=slim")
-    end
-  }
+	{
+		"slim-template/vim-slim",
+		config = function()
+			vim.cmd("au BufNewFile,BufRead *.slim set filetype=slim")
+		end,
+	},
 })
 
 -- options
