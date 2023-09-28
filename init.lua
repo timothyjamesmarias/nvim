@@ -102,13 +102,33 @@ require("lazy").setup({
 	{
 		"nvim-telescope/telescope.nvim",
 		tag = "0.1.3",
-		dependencies = { "nvim-lua/plenary.nvim" },
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			{
+				"nvim-telescope/telescope-fzf-native.nvim",
+				build = "make",
+			},
+		},
 		config = function()
+			local telescope = require("telescope")
+			telescope.setup({
+				extensions = {
+					fzf = {
+						fuzzy = true,
+						override_generic_sorter = true,
+						override_file_sorter = true,
+						case_mode = "smart_case",
+					},
+				},
+			})
+			telescope.load_extension("fzf")
+
 			local builtin = require("telescope.builtin")
 			vim.keymap.set("n", "<leader>ff", builtin.find_files, { silent = true })
 			vim.keymap.set("n", "<leader>fg", builtin.live_grep, { silent = true })
 			vim.keymap.set("n", "<leader>fb", builtin.buffers, { silent = true })
 			vim.keymap.set("n", "<leader>fh", builtin.help_tags, { silent = true })
+			vim.keymap.set("n", "<leader>sp", builtin.spell_suggest, { silent = true })
 		end,
 	},
 	{
@@ -373,14 +393,14 @@ require("lazy").setup({
 	},
 	{
 		"startup-nvim/startup.nvim",
-		dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
+		dependencies = {
+			"nvim-telescope/telescope.nvim",
+			"nvim-lua/plenary.nvim",
+		},
 		config = function()
 			local startup = require("startup")
 			startup.setup({ theme = "dashboard" })
 		end,
-	},
-	{
-		"github/copilot.vim",
 	},
 	{
 		"lewis6991/gitsigns.nvim",
