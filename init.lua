@@ -390,7 +390,12 @@ require("lazy").setup({
 		},
 		config = function()
 			local startup = require("startup")
-			startup.setup({ theme = "dashboard" })
+			startup.setup({ theme = "startify" })
+			vim.g.startup_bookmarks = {
+				["v"] = "~/.config/nvim/init.lua",
+				["a"] = "~/.alacritty.yml",
+				["z"] = "~/.zshrc",
+			}
 		end,
 	},
 	{
