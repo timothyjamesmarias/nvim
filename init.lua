@@ -7,7 +7,7 @@ vim.keymap.set("n", "<leader>w", ":w<CR>")
 vim.keymap.set("n", ";", ":")
 vim.keymap.set("i", "jj", "<Esc>", { silent = true })
 vim.keymap.set("n", "<Tab>", ":bnext<CR>", { silent = true })
-vim.keymap.set("n", "<C-Tab>", ":bprevious<CR>", { silent = true })
+vim.keymap.set("n", "<S-Tab>", ":bprevious<CR>", { silent = true })
 vim.keymap.set("n", "<leader>n", ":enew<CR>", { silent = true })
 vim.keymap.set("n", "<leader>q", ":bd<CR>", { silent = true })
 vim.keymap.set("n", "n", "nzzzv", { silent = true })
@@ -18,6 +18,7 @@ vim.keymap.set("n", "<C-j>", ":wincmd j<CR>", { silent = true })
 vim.keymap.set("n", "<C-k>", ":wincmd k<CR>", { silent = true })
 vim.keymap.set("n", "<leader>g", ":Neogit<CR>", { silent = true })
 vim.keymap.set("n", "<leader>vv", ":vsp<CR>", { silent = true })
+vim.keymap.set("n", "<leader>hh", ":sp<CR>", { silent = true })
 vim.keymap.set("n", "<leader>ss", "/")
 
 -- plugins
@@ -441,7 +442,7 @@ require("lazy").setup({
 						require("formatter.filetypes.ruby").standardrb,
 						function()
 							return {
-								exe = "bin/standardrb",
+								exe = "bundle exec standardrb",
 								args = { "--fix" },
 								stdin = true,
 							}
