@@ -7,7 +7,7 @@ vim.keymap.set("n", "<leader>w", ":w<CR>")
 vim.keymap.set("n", ";", ":")
 vim.keymap.set("i", "jj", "<Esc>", { silent = true })
 vim.keymap.set("n", "<Tab>", ":bnext<CR>", { silent = true })
-vim.keymap.set("n", "<S-Tab>", ":bprevious<CR>", { silent = true })
+vim.keymap.set("n", "<C-Tab>", ":bprevious<CR>", { silent = true })
 vim.keymap.set("n", "<leader>n", ":enew<CR>", { silent = true })
 vim.keymap.set("n", "<leader>q", ":bd<CR>", { silent = true })
 vim.keymap.set("n", "n", "nzzzv", { silent = true })
@@ -183,6 +183,12 @@ require("lazy").setup({
 			lspconfig["html"].setup({
 				on_attach = on_attach,
 				capabilities = capabilities,
+				filetypes = { "html", "eruby", "blade" },
+			})
+			lspconfig["emmet_ls"].setup({
+				on_attach = on_attach,
+				capabilities = capabilities,
+				filetypes = { "html", "eruby", "blade" },
 			})
 			lspconfig["lua_ls"].setup({
 				on_attach = on_attach,
@@ -215,6 +221,16 @@ require("lazy").setup({
 			lspconfig["tailwindcss"].setup({
 				on_attach = on_attach,
 				capabilities = capabilities,
+				filetypes = {
+					"html",
+					"eruby",
+					"blade",
+					"vue",
+					"javascript",
+					"typescript",
+					"javascriptreact",
+					"typescriptreact",
+				},
 			})
 			lspconfig["cssls"].setup({
 				on_attach = on_attach,
@@ -223,7 +239,7 @@ require("lazy").setup({
 			lspconfig["solargraph"].setup({
 				on_attach = on_attach,
 				capabilities = capabilities,
-				filetypes = { "ruby", "slim", "erb", "rake" },
+				filetypes = { "ruby", "eruby", "rake" },
 			})
 			lspconfig["bashls"].setup({
 				on_attach = on_attach,
@@ -395,6 +411,7 @@ require("lazy").setup({
 				["v"] = "~/.config/nvim/init.lua",
 				["a"] = "~/.alacritty.yml",
 				["z"] = "~/.zshrc",
+				["t"] = "~/.tmux.conf",
 			}
 		end,
 	},
