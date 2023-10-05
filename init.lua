@@ -236,11 +236,25 @@ require("lazy").setup({
 			lspconfig["cssls"].setup({
 				on_attach = on_attach,
 				capabilities = capabilities,
+				filetypes = {
+					"html",
+          "css",
+          "scss",
+          "less",
+					"eruby",
+					"slim",
+					"blade",
+					"vue",
+					"javascript",
+					"typescript",
+					"javascriptreact",
+					"typescriptreact",
+				},
 			})
 			lspconfig["solargraph"].setup({
 				on_attach = on_attach,
 				capabilities = capabilities,
-				filetypes = { "ruby", "eruby", "rake" },
+				filetypes = { "ruby", "eruby", "rake", "slim" },
 			})
 			lspconfig["bashls"].setup({
 				on_attach = on_attach,
@@ -550,6 +564,9 @@ require("lazy").setup({
 			end)
 		end,
 	},
+	{
+		"github/copilot.vim",
+	},
 })
 
 -- options
@@ -583,4 +600,4 @@ vim.opt.scrolloff = 8
 vim.opt.hlsearch = false
 vim.opt.incsearch = true
 vim.opt.termguicolors = true
-vim.opt.signcolumn = "yes"
+vim.opt.signcolun = "yes"
