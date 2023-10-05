@@ -37,11 +37,14 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
 	{
-		"folke/tokyonight.nvim",
+		"Mofiqul/adwaita.nvim",
 		lazy = false,
 		priority = 1000,
 		config = function()
-			vim.cmd([[colorscheme tokyonight]])
+			vim.g.adwaita_darker = true
+			vim.g.adwaita_disable_cursorline = true
+			vim.g.adwaita_transparent = true
+			vim.cmd([[colorscheme adwaita]])
 		end,
 	},
 	{
@@ -51,7 +54,11 @@ require("lazy").setup({
 		},
 		config = function()
 			local nvimtree = require("nvim-tree")
-			nvimtree.setup()
+			nvimtree.setup({
+				view = {
+					width = 70,
+				},
+			})
 			vim.keymap.set("n", "<C-n>", ":NvimTreeToggle<CR>", { silent = true })
 		end,
 	},
@@ -238,9 +245,9 @@ require("lazy").setup({
 				capabilities = capabilities,
 				filetypes = {
 					"html",
-          "css",
-          "scss",
-          "less",
+					"css",
+					"scss",
+					"less",
 					"eruby",
 					"slim",
 					"blade",
@@ -346,7 +353,7 @@ require("lazy").setup({
 			lualine.setup({
 				options = {
 					icons_enabled = true,
-					theme = "auto",
+					theme = "adwaita",
 					component_separators = { left = "|", right = "|" },
 					section_separators = { left = "", right = "" },
 					disabled_filetypes = {
