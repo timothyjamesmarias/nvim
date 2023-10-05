@@ -251,7 +251,7 @@ require("lazy").setup({
 					"typescriptreact",
 				},
 			})
-			lspconfig["solargraph"].setup({
+			lspconfig["ruby_ls"].setup({
 				on_attach = on_attach,
 				capabilities = capabilities,
 				filetypes = { "ruby", "eruby", "rake", "slim" },
@@ -600,4 +600,4 @@ vim.opt.scrolloff = 8
 vim.opt.hlsearch = false
 vim.opt.incsearch = true
 vim.opt.termguicolors = true
-vim.opt.signcolun = "yes"
+vim.opt.signcolumn = "yes"
