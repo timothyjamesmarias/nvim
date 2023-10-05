@@ -37,14 +37,12 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
 	{
-		"Mofiqul/adwaita.nvim",
+		"bluz71/vim-moonfly-colors",
+    name = "moonfly",
 		lazy = false,
 		priority = 1000,
 		config = function()
-			vim.g.adwaita_darker = true
-			vim.g.adwaita_disable_cursorline = true
-			vim.g.adwaita_transparent = true
-			vim.cmd([[colorscheme adwaita]])
+			vim.cmd([[colorscheme moonfly]])
 		end,
 	},
 	{
@@ -353,7 +351,7 @@ require("lazy").setup({
 			lualine.setup({
 				options = {
 					icons_enabled = true,
-					theme = "adwaita",
+					theme = "auto",
 					component_separators = { left = "|", right = "|" },
 					section_separators = { left = "", right = "" },
 					disabled_filetypes = {
@@ -406,7 +404,6 @@ require("lazy").setup({
 						local icon = level:match("error") and " " or " "
 						return " " .. icon .. count
 					end,
-					separator_style = "slant",
 					tab_size = 20,
 					offsets = {
 						{
