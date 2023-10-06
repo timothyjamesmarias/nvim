@@ -192,6 +192,11 @@ require("lazy").setup({
 				capabilities = capabilities,
 				filetypes = { "html", "eruby", "blade" },
 			})
+			lspconfig["clangd"].setup({
+				on_attach = on_attach,
+				capabilities = capabilities,
+				filetypes = { "c", "cpp" },
+			})
 			lspconfig["lua_ls"].setup({
 				on_attach = on_attach,
 				capabilities = capabilities,
