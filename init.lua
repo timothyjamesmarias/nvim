@@ -12,10 +12,6 @@ vim.keymap.set("n", "<leader>n", ":enew<CR>", { silent = true })
 vim.keymap.set("n", "<leader>q", ":bd<CR>", { silent = true })
 vim.keymap.set("n", "n", "nzzzv", { silent = true })
 vim.keymap.set("n", "N", "Nzzzv", { silent = true })
-vim.keymap.set("n", "<C-l>", ":wincmd l<CR>", { silent = true })
-vim.keymap.set("n", "<C-h>", ":wincmd h<CR>", { silent = true })
-vim.keymap.set("n", "<C-j>", ":wincmd j<CR>", { silent = true })
-vim.keymap.set("n", "<C-k>", ":wincmd k<CR>", { silent = true })
 vim.keymap.set("n", "<leader>g", ":Neogit<CR>", { silent = true })
 vim.keymap.set("n", "<leader>vv", ":vsp<CR>", { silent = true })
 vim.keymap.set("n", "<leader>hh", ":sp<CR>", { silent = true })
@@ -38,7 +34,7 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
 	{
 		"bluz71/vim-moonfly-colors",
-    name = "moonfly",
+		name = "moonfly",
 		lazy = false,
 		priority = 1000,
 		config = function()
@@ -570,6 +566,16 @@ require("lazy").setup({
 	},
 	{
 		"github/copilot.vim",
+	},
+	{
+		"christoomey/vim-tmux-navigator",
+		config = function()
+			vim.g.tmux_navigator_no_mappings = 1
+			vim.keymap.set("n", "<C-h>", ":TmuxNavigateLeft<CR>", { silent = true })
+			vim.keymap.set("n", "<C-j>", ":TmuxNavigateDown<CR>", { silent = true })
+			vim.keymap.set("n", "<C-k>", ":TmuxNavigateUp<CR>", { silent = true })
+			vim.keymap.set("n", "<C-l>", ":TmuxNavigateRight<CR>", { silent = true })
+		end,
 	},
 })
 
