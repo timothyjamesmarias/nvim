@@ -12,7 +12,6 @@ vim.keymap.set("n", "<leader>n", ":enew<CR>", { silent = true })
 vim.keymap.set("n", "<leader>q", ":bd<CR>", { silent = true })
 vim.keymap.set("n", "n", "nzzzv", { silent = true })
 vim.keymap.set("n", "N", "Nzzzv", { silent = true })
-vim.keymap.set("n", "<leader>g", ":Neogit<CR>", { silent = true })
 vim.keymap.set("n", "<leader>vv", ":vsp<CR>", { silent = true })
 vim.keymap.set("n", "<leader>hh", ":sp<CR>", { silent = true })
 vim.keymap.set("n", "<leader>ss", "/")
@@ -278,6 +277,10 @@ require("lazy").setup({
 				on_attach = on_attach,
 				capabilities = capabilities,
 			})
+			lspconfig["rust_analyzer"].setup({
+				on_attach = on_attach,
+				capabilities = capabilities,
+			})
 
 			cmp.setup({
 				snippet = {
@@ -331,15 +334,15 @@ require("lazy").setup({
 	{
 		"NeogitOrg/neogit",
 		dependencies = {
-			"nvim-lua/plenary.nvim", -- required
-			"nvim-telescope/telescope.nvim", -- optional
-			"sindrets/diffview.nvim", -- optional
-			"ibhagwan/fzf-lua", -- optional
+			"nvim-lua/plenary.nvim",
+			"nvim-telescope/telescope.nvim",
+			"sindrets/diffview.nvim",
+			"ibhagwan/fzf-lua",
 		},
 		config = function()
 			local neogit = require("neogit")
 			neogit.setup({})
-			vim.keymap.set("n", "<leader>g<CR>", ":Neogit", { silent = true })
+			vim.keymap.set("n", "<leader>g", ":Neogit<CR>", { silent = true })
 		end,
 	},
 	{
