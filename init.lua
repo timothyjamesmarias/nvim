@@ -331,7 +331,7 @@ require("lazy").setup({
 		config = function()
 			local neogit = require("neogit")
 			neogit.setup({})
-			vim.keymap.set("n", "<leader>g", ":Neogit<CR>", { silent = true })
+			vim.keymap.set("n", "<leader>gg", ":Neogit<CR>", { silent = true })
 		end,
 	},
 	{
