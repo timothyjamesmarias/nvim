@@ -41,21 +41,6 @@ require("lazy").setup({
 		end,
 	},
 	{
-		"nvim-tree/nvim-tree.lua",
-		dependencies = {
-			"nvim-tree/nvim-web-devicons",
-		},
-		config = function()
-			local nvimtree = require("nvim-tree")
-			nvimtree.setup({
-				view = {
-					width = 70,
-				},
-			})
-			vim.keymap.set("n", "<C-n>", ":NvimTreeToggle<CR>", { silent = true })
-		end,
-	},
-	{
 		"nvim-treesitter/nvim-treesitter",
 		event = { "BufReadPre", "BufNewFile" },
 		build = ":TSUpdate",
@@ -99,6 +84,7 @@ require("lazy").setup({
 		tag = "0.1.3",
 		dependencies = {
 			"nvim-lua/plenary.nvim",
+			"nvim-telescope/telescope-file-browser.nvim",
 			{
 				"nvim-telescope/telescope-fzf-native.nvim",
 				build = "make",
@@ -117,6 +103,7 @@ require("lazy").setup({
 				},
 			})
 			telescope.load_extension("fzf")
+			telescope.load_extension("file_browser")
 
 			local builtin = require("telescope.builtin")
 			vim.keymap.set("n", "<leader>ff", builtin.find_files, { silent = true })
@@ -127,6 +114,8 @@ require("lazy").setup({
 			vim.keymap.set("n", "<leader>gf", builtin.git_files, { silent = true })
 			vim.keymap.set("n", "<leader>gb", builtin.git_branches, { silent = true })
 			vim.keymap.set("n", "<leader>gcm", builtin.git_commits, { silent = true })
+			vim.keymap.set("n", "<leader>fn", ":Telescope file_browser<CR>", { silent = true, noremap = true })
+			vim.keymap.set("n", "<leader>fl", ":Telescope file_browser path=%:p:h select_buffer=true<CR>", { silent = true, noremap = true })
 		end,
 	},
 	{
@@ -486,12 +475,12 @@ require("lazy").setup({
 							}
 						end,
 					},
-          rust = {
-            exe = "rustfmt",
-            args = {
-              "--check"
-            },
-          },
+					rust = {
+						exe = "rustfmt",
+						args = {
+							"--check",
+						},
+					},
 					["*"] = {
 						require("formatter.filetypes.any").remove_trailing_whitespace,
 					},
