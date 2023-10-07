@@ -398,14 +398,6 @@ require("lazy").setup({
 						return " " .. icon .. count
 					end,
 					tab_size = 20,
-					offsets = {
-						{
-							filetype = "NvimTree",
-							text = "File Explorer",
-							highlight = "Directory",
-							separator = true,
-						},
-					},
 				},
 			})
 		end,
