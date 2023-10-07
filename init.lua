@@ -486,6 +486,12 @@ require("lazy").setup({
 							}
 						end,
 					},
+          rust = {
+            exe = "rustfmt",
+            args = {
+              "--check"
+            },
+          },
 					["*"] = {
 						require("formatter.filetypes.any").remove_trailing_whitespace,
 					},
@@ -618,4 +624,3 @@ vim.opt.scrolloff = 8
 vim.opt.hlsearch = false
 vim.opt.incsearch = true
 vim.opt.termguicolors = true
-vim.opt.signcolumn = "yes"
