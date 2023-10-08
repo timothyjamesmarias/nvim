@@ -32,12 +32,13 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
 	{
-		"bluz71/vim-moonfly-colors",
-		name = "moonfly",
+		"sainnhe/everforest",
 		lazy = false,
 		priority = 1000,
 		config = function()
-			vim.cmd([[colorscheme moonfly]])
+      vim.api.nvim_set_var("everforest_background", "hard")
+      vim.api.nvim_set_var("everforest_better_performance", 1)
+			vim.cmd([[colorscheme everforest]])
 		end,
 	},
 	{
@@ -115,7 +116,12 @@ require("lazy").setup({
 			vim.keymap.set("n", "<leader>gb", builtin.git_branches, { silent = true })
 			vim.keymap.set("n", "<leader>gcm", builtin.git_commits, { silent = true })
 			vim.keymap.set("n", "<leader>fn", ":Telescope file_browser<CR>", { silent = true, noremap = true })
-			vim.keymap.set("n", "<leader>fl", ":Telescope file_browser path=%:p:h select_buffer=true<CR>", { silent = true, noremap = true })
+			vim.keymap.set(
+				"n",
+				"<leader>fl",
+				":Telescope file_browser path=%:p:h select_buffer=true<CR>",
+				{ silent = true, noremap = true }
+			)
 		end,
 	},
 	{
@@ -163,7 +169,6 @@ require("lazy").setup({
 				vim.keymap.set("n", "gt", ":Telescope lsp_type_definitions<CR>")
 				vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action)
 				vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename)
-				vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float)
 				vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
 				vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
 				vim.keymap.set("n", "K", vim.lsp.buf.hover)
@@ -319,6 +324,12 @@ require("lazy").setup({
 		"windwp/nvim-autopairs",
 		event = "InsertEnter",
 		opts = {},
+	},
+	{
+		"sindrets/diffview.nvim",
+		config = function()
+			local diffview = require("diffview")
+		end,
 	},
 	{
 		"NeogitOrg/neogit",
