@@ -112,9 +112,6 @@ require("lazy").setup({
 			vim.keymap.set("n", "<leader>fb", builtin.buffers, { silent = true })
 			vim.keymap.set("n", "<leader>fh", builtin.help_tags, { silent = true })
 			vim.keymap.set("n", "<leader>sp", builtin.spell_suggest, { silent = true })
-			vim.keymap.set("n", "<leader>gf", builtin.git_files, { silent = true })
-			vim.keymap.set("n", "<leader>gb", builtin.git_branches, { silent = true })
-			vim.keymap.set("n", "<leader>gcm", builtin.git_commits, { silent = true })
 			vim.keymap.set("n", "<leader>fn", ":Telescope file_browser<CR>", { silent = true, noremap = true })
 			vim.keymap.set(
 				"n",
@@ -326,12 +323,6 @@ require("lazy").setup({
 		opts = {},
 	},
 	{
-		"sindrets/diffview.nvim",
-		config = function()
-			local diffview = require("diffview")
-		end,
-	},
-	{
 		"NeogitOrg/neogit",
 		dependencies = {
 			"nvim-lua/plenary.nvim",
@@ -341,8 +332,15 @@ require("lazy").setup({
 		},
 		config = function()
 			local neogit = require("neogit")
-			neogit.setup({})
+			neogit.setup({
+        integrations = {
+          diffview = true
+        }
+      })
 			vim.keymap.set("n", "<leader>gg", ":Neogit<CR>", { silent = true })
+			vim.keymap.set("n", "<leader>gd", ":DiffviewOpen<CR>", { silent = true })
+			vim.keymap.set("n", "<leader>gD", ":DiffviewOpen main<CR>", { silent = true })
+			vim.keymap.set("n", "<leader>gl", ":DiffviewOpen<CR>", { silent = true })
 		end,
 	},
 	{
