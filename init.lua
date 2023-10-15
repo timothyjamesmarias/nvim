@@ -576,6 +576,24 @@ require("lazy").setup({
 	{
 		"github/copilot.vim",
 	},
+	{
+		"tpope/vim-rails",
+	},
+	{
+		"ThePrimeagen/refactoring.nvim",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"nvim-treesitter/nvim-treesitter",
+			"nvim-telescope/telescope.nvim",
+		},
+		config = function()
+			require("refactoring").setup()
+			require("telescope").load_extension("refactoring")
+			vim.keymap.set({ "n", "v" }, "<leader>rr", function()
+				require("telescope").extensions.refactoring.refactors()
+			end)
+		end,
+	},
 })
 
 -- options
