@@ -6,8 +6,8 @@ vim.g.mapleader = " "
 vim.keymap.set("n", "<leader>w", ":w<CR>")
 vim.keymap.set("n", ";", ":")
 vim.keymap.set("i", "jj", "<Esc>", { silent = true })
-vim.keymap.set("n", "<Tab>", ":bnext<CR>", { silent = true })
-vim.keymap.set("n", "<S-Tab>", ":bprevious<CR>", { silent = true })
+vim.keymap.set("n", "<C-k>", ":bnext<CR>", { silent = true })
+vim.keymap.set("n", "<C-j>", ":bprevious<CR>", { silent = true })
 vim.keymap.set("n", "<leader>n", ":enew<CR>", { silent = true })
 vim.keymap.set("n", "<leader>q", ":bd<CR>", { silent = true })
 vim.keymap.set("n", "n", "nzzzv", { silent = true })
@@ -575,10 +575,10 @@ require("lazy").setup({
 		"christoomey/vim-tmux-navigator",
 		config = function()
 			vim.g.tmux_navigator_no_mappings = 1
-			vim.keymap.set("n", "<C-h>", ":TmuxNavigateLeft<CR>", { silent = true })
-			vim.keymap.set("n", "<C-j>", ":TmuxNavigateDown<CR>", { silent = true })
-			vim.keymap.set("n", "<C-k>", ":TmuxNavigateUp<CR>", { silent = true })
-			vim.keymap.set("n", "<C-l>", ":TmuxNavigateRight<CR>", { silent = true })
+			vim.keymap.set("n", "<M-h>", ":TmuxNavigateLeft<CR>", { silent = true })
+			vim.keymap.set("n", "<M-j>", ":TmuxNavigateDown<CR>", { silent = true })
+			vim.keymap.set("n", "<M-k>", ":TmuxNavigateUp<CR>", { silent = true })
+			vim.keymap.set("n", "<M-l>", ":TmuxNavigateRight<CR>", { silent = true })
 		end,
 	},
 })
