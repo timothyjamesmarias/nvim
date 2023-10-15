@@ -6,8 +6,8 @@ vim.g.mapleader = " "
 vim.keymap.set("n", "<leader>w", ":w<CR>")
 vim.keymap.set("n", ";", ":")
 vim.keymap.set("i", "jj", "<Esc>", { silent = true })
-vim.keymap.set("n", "<C-k>", ":bnext<CR>", { silent = true })
-vim.keymap.set("n", "<C-j>", ":bprevious<CR>", { silent = true })
+vim.keymap.set("n", "<C-k>", ":bnext<CR>", { silent = true, remap = true })
+vim.keymap.set("n", "<C-j>", ":bprevious<CR>", { silent = true, remap = true })
 vim.keymap.set("n", "<leader>n", ":enew<CR>", { silent = true })
 vim.keymap.set("n", "<leader>q", ":bd<CR>", { silent = true })
 vim.keymap.set("n", "n", "nzzzv", { silent = true })
@@ -15,6 +15,11 @@ vim.keymap.set("n", "N", "Nzzzv", { silent = true })
 vim.keymap.set("n", "<leader>vv", ":vsp<CR>", { silent = true })
 vim.keymap.set("n", "<leader>hh", ":sp<CR>", { silent = true })
 vim.keymap.set("n", "<leader>ss", "/")
+-- window navigation; requires the syumbols for mac keyboards to use meta/alt
+vim.keymap.set("n", "˙", "<C-w>h<CR>", { silent = true })
+vim.keymap.set("n", "∆", "<C-w>j<CR>", { silent = true })
+vim.keymap.set("n", "˚", "<C-w>k<CR>", { silent = true })
+vim.keymap.set("n", "¬", "<C-w>l<CR>", { silent = true })
 
 -- plugins
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -36,8 +41,8 @@ require("lazy").setup({
 		lazy = false,
 		priority = 1000,
 		config = function()
-      vim.api.nvim_set_var("everforest_background", "hard")
-      vim.api.nvim_set_var("everforest_better_performance", 1)
+			vim.api.nvim_set_var("everforest_background", "hard")
+			vim.api.nvim_set_var("everforest_better_performance", 1)
 			vim.cmd([[colorscheme everforest]])
 		end,
 	},
@@ -333,10 +338,10 @@ require("lazy").setup({
 		config = function()
 			local neogit = require("neogit")
 			neogit.setup({
-        integrations = {
-          diffview = true
-        }
-      })
+				integrations = {
+					diffview = true,
+				},
+			})
 			vim.keymap.set("n", "<leader>gg", ":Neogit<CR>", { silent = true })
 			vim.keymap.set("n", "<leader>gd", ":DiffviewOpen<CR>", { silent = true })
 			vim.keymap.set("n", "<leader>gD", ":DiffviewOpen main<CR>", { silent = true })
@@ -454,7 +459,7 @@ require("lazy").setup({
 						require("formatter.filetypes.ruby").standardrb,
 						function()
 							return {
-								exe = "bundle exec standardrb",
+								exe = "standardrb",
 								args = { "--fix" },
 								stdin = true,
 							}
@@ -570,16 +575,6 @@ require("lazy").setup({
 	},
 	{
 		"github/copilot.vim",
-	},
-	{
-		"christoomey/vim-tmux-navigator",
-		config = function()
-			vim.g.tmux_navigator_no_mappings = 1
-			vim.keymap.set("n", "<M-h>", ":TmuxNavigateLeft<CR>", { silent = true })
-			vim.keymap.set("n", "<M-j>", ":TmuxNavigateDown<CR>", { silent = true })
-			vim.keymap.set("n", "<M-k>", ":TmuxNavigateUp<CR>", { silent = true })
-			vim.keymap.set("n", "<M-l>", ":TmuxNavigateRight<CR>", { silent = true })
-		end,
 	},
 })
 
