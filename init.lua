@@ -6,8 +6,8 @@ vim.g.mapleader = " "
 vim.keymap.set("n", "<leader>w", ":w<CR>")
 vim.keymap.set("n", ";", ":")
 vim.keymap.set("i", "jj", "<Esc>", { silent = true })
-vim.keymap.set("n", "<C-k>", ":bnext<CR>", { silent = true, remap = true })
-vim.keymap.set("n", "<C-j>", ":bprevious<CR>", { silent = true, remap = true })
+vim.keymap.set("n", "<Tab>", ":bnext<CR>", { silent = true, remap = true })
+vim.keymap.set("n", "<C-Tab>", ":bprevious<CR>", { silent = true, remap = true })
 vim.keymap.set("n", "<leader>n", ":enew<CR>", { silent = true })
 vim.keymap.set("n", "<leader>q", ":bd<CR>", { silent = true })
 vim.keymap.set("n", "n", "nzzzv", { silent = true })
@@ -16,10 +16,10 @@ vim.keymap.set("n", "<leader>vv", ":vsp<CR>", { silent = true })
 vim.keymap.set("n", "<leader>hh", ":sp<CR>", { silent = true })
 vim.keymap.set("n", "<leader>ss", "/")
 -- window navigation; requires the syumbols for mac keyboards to use meta/alt
-vim.keymap.set("n", "˙", "<C-w>h<CR>", { silent = true })
-vim.keymap.set("n", "∆", "<C-w>j<CR>", { silent = true })
-vim.keymap.set("n", "˚", "<C-w>k<CR>", { silent = true })
-vim.keymap.set("n", "¬", "<C-w>l<CR>", { silent = true })
+vim.keymap.set("n", "<C-h>", "<C-w>h<CR>", { silent = true })
+vim.keymap.set("n", "<C-j>", "<C-w>j<CR>", { silent = true })
+vim.keymap.set("n", "<C-k>", "<C-w>k<CR>", { silent = true })
+vim.keymap.set("n", "<C-l>", "<C-w>l<CR>", { silent = true })
 
 -- plugins
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
