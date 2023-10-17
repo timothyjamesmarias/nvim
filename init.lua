@@ -36,14 +36,22 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
+	-- {
+	-- 	"sainnhe/everforest",
+	-- 	lazy = false,
+	-- 	priority = 1000,
+	-- 	config = function()
+	-- 		vim.api.nvim_set_var("everforest_background", "hard")
+	-- 		vim.api.nvim_set_var("everforest_better_performance", 1)
+	-- 		vim.cmd([[colorscheme everforest]])
+	-- 	end,
+	-- },
 	{
-		"sainnhe/everforest",
+		"EdenEast/nightfox.nvim",
 		lazy = false,
 		priority = 1000,
 		config = function()
-			vim.api.nvim_set_var("everforest_background", "hard")
-			vim.api.nvim_set_var("everforest_better_performance", 1)
-			vim.cmd([[colorscheme everforest]])
+			vim.cmd([[colorscheme terafox]])
 		end,
 	},
 	{
@@ -274,6 +282,10 @@ require("lazy").setup({
 				capabilities = capabilities,
 			})
 			lspconfig["rust_analyzer"].setup({
+				on_attach = on_attach,
+				capabilities = capabilities,
+			})
+			lspconfig["gopls"].setup({
 				on_attach = on_attach,
 				capabilities = capabilities,
 			})
