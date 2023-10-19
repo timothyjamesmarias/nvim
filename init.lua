@@ -36,22 +36,16 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-	-- {
-	-- 	"sainnhe/everforest",
-	-- 	lazy = false,
-	-- 	priority = 1000,
-	-- 	config = function()
-	-- 		vim.api.nvim_set_var("everforest_background", "hard")
-	-- 		vim.api.nvim_set_var("everforest_better_performance", 1)
-	-- 		vim.cmd([[colorscheme everforest]])
-	-- 	end,
-	-- },
 	{
-		"EdenEast/nightfox.nvim",
+		"navarasu/onedark.nvim",
 		lazy = false,
 		priority = 1000,
 		config = function()
-			vim.cmd([[colorscheme terafox]])
+			local onedark = require("onedark")
+			onedark.setup({
+				style = "deep",
+			})
+			vim.cmd([[colorscheme onedark]])
 		end,
 	},
 	{
@@ -186,11 +180,6 @@ require("lazy").setup({
 			end
 
 			lspconfig["html"].setup({
-				on_attach = on_attach,
-				capabilities = capabilities,
-				filetypes = { "html", "eruby", "blade" },
-			})
-			lspconfig["emmet_ls"].setup({
 				on_attach = on_attach,
 				capabilities = capabilities,
 				filetypes = { "html", "eruby", "blade" },
@@ -552,16 +541,6 @@ require("lazy").setup({
 		end,
 	},
 	{
-		"voldikss/vim-floaterm",
-		config = function()
-			vim.keymap.set("n", "<leader>tt", ":FloatermToggle<CR>")
-			vim.keymap.set("t", "<leader>tt", "<C-\\><C-n>:FloatermToggle<CR>")
-		end,
-	},
-	{
-		"folke/twilight.nvim",
-	},
-	{
 		"folke/trouble.nvim",
 		config = function()
 			require("trouble").setup({})
@@ -592,19 +571,7 @@ require("lazy").setup({
 		"tpope/vim-rails",
 	},
 	{
-		"ThePrimeagen/refactoring.nvim",
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-			"nvim-treesitter/nvim-treesitter",
-			"nvim-telescope/telescope.nvim",
-		},
-		config = function()
-			require("refactoring").setup()
-			require("telescope").load_extension("refactoring")
-			vim.keymap.set({ "n", "v" }, "<leader>rr", function()
-				require("telescope").extensions.refactoring.refactors()
-			end)
-		end,
+		"ludovicchabant/vim-gutentags",
 	},
 })
 
