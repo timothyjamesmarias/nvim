@@ -14,7 +14,7 @@ vim.keymap.set("n", "n", "nzzzv", { silent = true })
 vim.keymap.set("n", "N", "Nzzzv", { silent = true })
 vim.keymap.set("n", "<leader>vv", ":vsp<CR>", { silent = true })
 vim.keymap.set("n", "<leader>hh", ":sp<CR>", { silent = true })
-vim.keymap.set("n", "<leader>ss", "/")
+vim.keymap.set("n", "<leader>sf", "/")
 -- window navigation; requires the syumbols for mac keyboards to use meta/alt
 vim.keymap.set("n", "<C-h>", "<C-w>h<CR>", { silent = true })
 vim.keymap.set("n", "<C-j>", "<C-w>j<CR>", { silent = true })
@@ -72,6 +72,17 @@ require("lazy").setup({
 		end,
 	},
 	{
+		"stevearc/aerial.nvim",
+		dependencies = {
+			"nvim-treesitter/nvim-treesitter",
+			"nvim-tree/nvim-web-devicons",
+		},
+		config = function()
+			local aerial = require("aerial")
+			aerial.setup()
+		end,
+	},
+	{
 		"nvim-telescope/telescope.nvim",
 		tag = "0.1.3",
 		dependencies = {
@@ -81,10 +92,12 @@ require("lazy").setup({
 				"nvim-telescope/telescope-fzf-native.nvim",
 				build = "make",
 			},
+			"nvim-treesitter/nvim-treesitter",
 			"stevearc/aerial.nvim",
 		},
 		config = function()
 			local telescope = require("telescope")
+			local aerial = require("aerial")
 			telescope.setup({
 				extensions = {
 					fzf = {
@@ -93,6 +106,7 @@ require("lazy").setup({
 						override_file_sorter = true,
 						case_mode = "smart_case",
 					},
+					aerial = {},
 				},
 			})
 			telescope.load_extension("fzf")
@@ -100,19 +114,27 @@ require("lazy").setup({
 			telescope.load_extension("aerial")
 
 			local builtin = require("telescope.builtin")
+			local utils = require("telescope.utils")
 			vim.keymap.set("n", "<leader>ff", builtin.find_files, { silent = true })
 			vim.keymap.set("n", "<leader>fd", builtin.live_grep, { silent = true })
 			vim.keymap.set("n", "<leader>fb", builtin.buffers, { silent = true })
 			vim.keymap.set("n", "<leader>fh", builtin.help_tags, { silent = true })
 			vim.keymap.set("n", "<leader>sp", builtin.spell_suggest, { silent = true })
-			vim.keymap.set("n", "<leader>fn", ":Telescope file_browser<CR>", { silent = true, noremap = true })
-			vim.keymap.set("n", "<leader>tg", ":Telescope aerial<CR>", { silent = true, noremap = true })
+			vim.keymap.set("n", "<leader>fn", "<cmd>Telescope file_browser<CR>", { silent = true, noremap = true })
+			vim.keymap.set("n", "<leader>tg", "<cmd>Telescope aerial<CR>", { silent = true, noremap = true })
 			vim.keymap.set(
 				"n",
 				"<leader>fl",
-				":Telescope file_browser path=%:p:h select_buffer=true<CR>",
+				"<cmd>Telescope file_browser path=%:p:h select_buffer=true<CR>",
 				{ silent = true, noremap = true }
 			)
+			vim.keymap.set("n", "<leader>sl", builtin.grep_string, { silent = true, noremap = true })
+			-- search for string in entire project
+			vim.keymap.set("n", "<leader>sg", function()
+				builtin.grep_string({
+          cwd = vim.fn.expand("%:p:h"),
+				})
+			end, { silent = true, noremap = true })
 		end,
 	},
 	{
@@ -476,7 +498,7 @@ require("lazy").setup({
 					},
 				},
 			})
-			vim.keymap.set("n", "<leader>f", ":Format<CR>", { silent = true })
+			vim.keymap.set("n", "<leader>fm", ":Format<CR>", { silent = true })
 		end,
 	},
 	{
