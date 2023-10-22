@@ -37,15 +37,11 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
 	{
-		"navarasu/onedark.nvim",
+		"bluz71/vim-moonfly-colors",
 		lazy = false,
 		priority = 1000,
 		config = function()
-			local onedark = require("onedark")
-			onedark.setup({
-				style = "deep",
-			})
-			vim.cmd([[colorscheme onedark]])
+			vim.cmd([[colorscheme moonfly]])
 		end,
 	},
 	{
@@ -72,18 +68,6 @@ require("lazy").setup({
 				context_commentstring = {
 					enable = true,
 				},
-				textobjects = {
-					select = {
-						enable = true,
-						lookahead = true,
-						keymaps = {
-							["af"] = "@function.outer",
-							["if"] = "@function.inner",
-							["aa"] = "@class.outer",
-							["ia"] = "@class.inner",
-						},
-					},
-				},
 			})
 		end,
 	},
@@ -97,6 +81,7 @@ require("lazy").setup({
 				"nvim-telescope/telescope-fzf-native.nvim",
 				build = "make",
 			},
+			"stevearc/aerial.nvim",
 		},
 		config = function()
 			local telescope = require("telescope")
@@ -112,14 +97,16 @@ require("lazy").setup({
 			})
 			telescope.load_extension("fzf")
 			telescope.load_extension("file_browser")
+			telescope.load_extension("aerial")
 
 			local builtin = require("telescope.builtin")
 			vim.keymap.set("n", "<leader>ff", builtin.find_files, { silent = true })
-			vim.keymap.set("n", "<leader>fg", builtin.live_grep, { silent = true })
+			vim.keymap.set("n", "<leader>fd", builtin.live_grep, { silent = true })
 			vim.keymap.set("n", "<leader>fb", builtin.buffers, { silent = true })
 			vim.keymap.set("n", "<leader>fh", builtin.help_tags, { silent = true })
 			vim.keymap.set("n", "<leader>sp", builtin.spell_suggest, { silent = true })
 			vim.keymap.set("n", "<leader>fn", ":Telescope file_browser<CR>", { silent = true, noremap = true })
+			vim.keymap.set("n", "<leader>tg", ":Telescope aerial<CR>", { silent = true, noremap = true })
 			vim.keymap.set(
 				"n",
 				"<leader>fl",
@@ -249,7 +236,7 @@ require("lazy").setup({
 					"typescriptreact",
 				},
 			})
-			lspconfig["ruby_ls"].setup({
+			lspconfig["solargraph"].setup({
 				on_attach = on_attach,
 				capabilities = capabilities,
 				filetypes = { "ruby", "eruby", "rake", "slim" },
@@ -418,20 +405,16 @@ require("lazy").setup({
 		end,
 	},
 	{
-		"startup-nvim/startup.nvim",
+		"nvimdev/dashboard-nvim",
 		dependencies = {
+			"kyazdani42/nvim-web-devicons",
 			"nvim-telescope/telescope.nvim",
-			"nvim-lua/plenary.nvim",
+			"rmagatti/session-lens",
+			"nvim-lualine/lualine.nvim",
 		},
+		event = "VimEnter",
 		config = function()
-			local startup = require("startup")
-			startup.setup({ theme = "startify" })
-			vim.g.startup_bookmarks = {
-				["v"] = "~/.config/nvim/init.lua",
-				["a"] = "~/.alacritty.yml",
-				["z"] = "~/.zshrc",
-				["t"] = "~/.tmux.conf",
-			}
+			require("dashboard").setup({})
 		end,
 	},
 	{
@@ -569,9 +552,6 @@ require("lazy").setup({
 	},
 	{
 		"tpope/vim-rails",
-	},
-	{
-		"ludovicchabant/vim-gutentags",
 	},
 })
 
