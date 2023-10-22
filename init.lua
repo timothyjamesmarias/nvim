@@ -3,17 +3,17 @@ vim.g.loaded_netrwPlugin = 1
 
 -- remaps
 vim.g.mapleader = " "
-vim.keymap.set("n", "<leader>w", ":w<CR>")
+vim.keymap.set("n", "<leader>w", "<cmd>w<CR>")
 vim.keymap.set("n", ";", ":")
 vim.keymap.set("i", "jj", "<Esc>", { silent = true })
-vim.keymap.set("n", "L", ":bnext<CR>", { silent = true, remap = true })
-vim.keymap.set("n", "H", ":bprevious<CR>", { silent = true, remap = true })
-vim.keymap.set("n", "<leader>n", ":enew<CR>", { silent = true })
-vim.keymap.set("n", "<leader>q", ":bd<CR>", { silent = true })
+vim.keymap.set("n", "L", "<cmd>bnext<CR>", { silent = true, remap = true })
+vim.keymap.set("n", "H", "<cmd>bprevious<CR>", { silent = true, remap = true })
+vim.keymap.set("n", "<leader>n", "<cmd>enew<CR>", { silent = true })
+vim.keymap.set("n", "<leader>q", "<cmd>bd<CR>", { silent = true })
 vim.keymap.set("n", "n", "nzzzv", { silent = true })
 vim.keymap.set("n", "N", "Nzzzv", { silent = true })
-vim.keymap.set("n", "<leader>vv", ":vsp<CR>", { silent = true })
-vim.keymap.set("n", "<leader>hh", ":sp<CR>", { silent = true })
+vim.keymap.set("n", "<leader>vv", "<cmd>vsp<CR>", { silent = true })
+vim.keymap.set("n", "<leader>hh", "<cmd>sp<CR>", { silent = true })
 vim.keymap.set("n", "<leader>sf", "/")
 -- window navigation; requires the syumbols for mac keyboards to use meta/alt
 vim.keymap.set("n", "<C-h>", "<C-w>h<CR>", { silent = true })
@@ -47,7 +47,7 @@ require("lazy").setup({
 	{
 		"nvim-treesitter/nvim-treesitter",
 		event = { "BufReadPre", "BufNewFile" },
-		build = ":TSUpdate",
+		build = "<cmd>TSUpdate",
 		dependencies = {
 			"windwp/nvim-ts-autotag",
 			"JoosepAlviste/nvim-ts-context-commentstring",
@@ -94,6 +94,7 @@ require("lazy").setup({
 			},
 			"nvim-treesitter/nvim-treesitter",
 			"stevearc/aerial.nvim",
+			"debugloop/telescope-undo.nvim",
 		},
 		config = function()
 			local telescope = require("telescope")
@@ -107,11 +108,13 @@ require("lazy").setup({
 						case_mode = "smart_case",
 					},
 					aerial = {},
+					undo = {},
 				},
 			})
 			telescope.load_extension("fzf")
 			telescope.load_extension("file_browser")
 			telescope.load_extension("aerial")
+			telescope.load_extension("undo")
 
 			local builtin = require("telescope.builtin")
 			local utils = require("telescope.utils")
@@ -129,12 +132,7 @@ require("lazy").setup({
 				{ silent = true, noremap = true }
 			)
 			vim.keymap.set("n", "<leader>sl", builtin.grep_string, { silent = true, noremap = true })
-			-- search for string in entire project
-			vim.keymap.set("n", "<leader>sg", function()
-				builtin.grep_string({
-          cwd = vim.fn.expand("%:p:h"),
-				})
-			end, { silent = true, noremap = true })
+			vim.keymap.set("n", "<leader>u", "<cmd>Telescope undo<cr>")
 		end,
 	},
 	{
@@ -175,17 +173,17 @@ require("lazy").setup({
 			local luasnip = require("luasnip")
 
 			local on_attach = function(client, buffer)
-				vim.keymap.set("n", "gr", ":Telescope lsp_references<CR>")
+				vim.keymap.set("n", "gr", "<cmd>Telescope lsp_references<CR>")
 				vim.keymap.set("n", "gD", vim.lsp.buf.declaration)
-				vim.keymap.set("n", "gd", ":Telescope lsp_definitions<CR>")
-				vim.keymap.set("n", "gi", ":Telescope lsp_implementations<CR>")
-				vim.keymap.set("n", "gt", ":Telescope lsp_type_definitions<CR>")
+				vim.keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>")
+				vim.keymap.set("n", "gi", "<cmd>Telescope lsp_implementations<CR>")
+				vim.keymap.set("n", "gt", "<cmd>Telescope lsp_type_definitions<CR>")
 				vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action)
 				vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename)
 				vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
 				vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
 				vim.keymap.set("n", "K", vim.lsp.buf.hover)
-				vim.keymap.set("n", "<leader>rs", ":LspRestart<CR>")
+				vim.keymap.set("n", "<leader>rs", "<cmd>LspRestart<CR>")
 			end
 
 			lspconfig["html"].setup({
@@ -352,10 +350,10 @@ require("lazy").setup({
 					diffview = true,
 				},
 			})
-			vim.keymap.set("n", "<leader>gg", ":Neogit<CR>", { silent = true })
-			vim.keymap.set("n", "<leader>gd", ":DiffviewOpen<CR>", { silent = true })
-			vim.keymap.set("n", "<leader>gD", ":DiffviewOpen main<CR>", { silent = true })
-			vim.keymap.set("n", "<leader>gl", ":DiffviewOpen<CR>", { silent = true })
+			vim.keymap.set("n", "<leader>gg", "<cmd>Neogit<CR>", { silent = true })
+			vim.keymap.set("n", "<leader>gd", "<cmd>DiffviewOpen<CR>", { silent = true })
+			vim.keymap.set("n", "<leader>gD", "<cmd>DiffviewOpen main<CR>", { silent = true })
+			vim.keymap.set("n", "<leader>gl", "<cmd>DiffviewOpen<CR>", { silent = true })
 		end,
 	},
 	{
@@ -498,7 +496,7 @@ require("lazy").setup({
 					},
 				},
 			})
-			vim.keymap.set("n", "<leader>fm", ":Format<CR>", { silent = true })
+			vim.keymap.set("n", "<leader>fm", "<cmd>Format<CR>", { silent = true })
 		end,
 	},
 	{
@@ -536,7 +534,7 @@ require("lazy").setup({
 				end,
 			})
 			session_lens.setup({})
-			vim.keymap.set("n", "<leader>se", ":Telescope session-lens search_session<CR>")
+			vim.keymap.set("n", "<leader>se", "<cmd>Telescope session-lens search_session<CR>")
 		end,
 	},
 	{
