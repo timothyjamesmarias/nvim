@@ -427,7 +427,7 @@ require("lazy").setup({
 	{
 		"nvimdev/dashboard-nvim",
 		dependencies = {
-			"kyazdani42/nvim-web-devicons",
+			"nvim-tree/nvim-web-devicons",
 			"nvim-telescope/telescope.nvim",
 			"rmagatti/session-lens",
 			"nvim-lualine/lualine.nvim",
