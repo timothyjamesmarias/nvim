@@ -168,6 +168,7 @@ require("lazy").setup({
 		config = function()
 			local lspconfig = require("lspconfig")
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
+			local util = require("lspconfig.util")
 			local cmp = require("cmp")
 			local lspkind = require("lspkind")
 			local luasnip = require("luasnip")
@@ -256,10 +257,12 @@ require("lazy").setup({
 					"typescriptreact",
 				},
 			})
-			lspconfig["solargraph"].setup({
+			lspconfig["ruby_ls"].setup({
 				on_attach = on_attach,
 				capabilities = capabilities,
 				filetypes = { "ruby", "eruby", "rake", "slim" },
+				cmd = { "bundle", "exec", "ruby-lsp" },
+				root_dir = util.root_pattern("Gemfile", ".git"),
 			})
 			lspconfig["bashls"].setup({
 				on_attach = on_attach,
