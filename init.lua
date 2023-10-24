@@ -98,7 +98,6 @@ require("lazy").setup({
 		},
 		config = function()
 			local telescope = require("telescope")
-			local aerial = require("aerial")
 			telescope.setup({
 				extensions = {
 					fzf = {
@@ -117,7 +116,6 @@ require("lazy").setup({
 			telescope.load_extension("undo")
 
 			local builtin = require("telescope.builtin")
-			local utils = require("telescope.utils")
 			vim.keymap.set("n", "<leader>ff", builtin.find_files, { silent = true })
 			vim.keymap.set("n", "<leader>fd", builtin.live_grep, { silent = true })
 			vim.keymap.set("n", "<leader>fb", builtin.buffers, { silent = true })
@@ -168,12 +166,11 @@ require("lazy").setup({
 		config = function()
 			local lspconfig = require("lspconfig")
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
-			local util = require("lspconfig.util")
 			local cmp = require("cmp")
 			local lspkind = require("lspkind")
 			local luasnip = require("luasnip")
 
-			local on_attach = function(client, buffer)
+			local on_attach = function()
 				vim.keymap.set("n", "gr", "<cmd>Telescope lsp_references<CR>")
 				vim.keymap.set("n", "gD", vim.lsp.buf.declaration)
 				vim.keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>")
@@ -257,12 +254,10 @@ require("lazy").setup({
 					"typescriptreact",
 				},
 			})
-			lspconfig["ruby_ls"].setup({
+			lspconfig["solargraph"].setup({
 				on_attach = on_attach,
 				capabilities = capabilities,
 				filetypes = { "ruby", "eruby", "rake", "slim" },
-				cmd = { "bundle", "exec", "ruby-lsp" },
-				root_dir = util.root_pattern("Gemfile", ".git"),
 			})
 			lspconfig["bashls"].setup({
 				on_attach = on_attach,
@@ -418,7 +413,7 @@ require("lazy").setup({
 			bufferline.setup({
 				options = {
 					diagnostics = "nvim_lsp",
-					diagnostics_indicator = function(count, level, diagnostics_dict, context)
+					diagnostics_indicator = function(count, level)
 						local icon = level:match("error") and " " or " "
 						return " " .. icon .. count
 					end,
