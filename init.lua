@@ -6,8 +6,8 @@ vim.g.mapleader = " "
 vim.keymap.set("n", "<leader>w", "<cmd>w<CR>")
 vim.keymap.set("n", ";", ":")
 vim.keymap.set("i", "jj", "<Esc>", { silent = true })
-vim.keymap.set("n", "L", "<cmd>bnext<CR>", { silent = true, remap = true })
-vim.keymap.set("n", "H", "<cmd>bprevious<CR>", { silent = true, remap = true })
+vim.keymap.set("n", "<C-n>", "<cmd>bnext<CR>", { silent = true, remap = true })
+vim.keymap.set("n", "<C-p>", "<cmd>bprevious<CR>", { silent = true, remap = true })
 vim.keymap.set("n", "<leader>n", "<cmd>enew<CR>", { silent = true })
 vim.keymap.set("n", "<leader>q", "<cmd>bd<CR>", { silent = true })
 vim.keymap.set("n", "n", "nzzzv", { silent = true })
@@ -37,11 +37,13 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
 	{
-		"bluz71/vim-moonfly-colors",
-		lazy = false,
-		priority = 1000,
+		"navarasu/onedark.nvim",
 		config = function()
-			vim.cmd([[colorscheme moonfly]])
+			local onedark = require("onedark")
+			onedark.setup({
+				style = "deep",
+			})
+			vim.cmd("colorscheme onedark")
 		end,
 	},
 	{
