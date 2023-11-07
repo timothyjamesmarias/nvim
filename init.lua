@@ -1,6 +1,3 @@
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
-
 -- remaps
 vim.g.mapleader = " "
 vim.keymap.set("n", "<leader>w", "<cmd>w<CR>")
@@ -429,19 +426,6 @@ require("lazy").setup({
 					tab_size = 20,
 				},
 			})
-		end,
-	},
-	{
-		"nvimdev/dashboard-nvim",
-		dependencies = {
-			"nvim-tree/nvim-web-devicons",
-			"nvim-telescope/telescope.nvim",
-			"rmagatti/session-lens",
-			"nvim-lualine/lualine.nvim",
-		},
-		event = "VimEnter",
-		config = function()
-			require("dashboard").setup({})
 		end,
 	},
 	{
