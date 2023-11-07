@@ -34,13 +34,15 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
 	{
-		"navarasu/onedark.nvim",
+		"folke/tokyonight.nvim",
+		lazy = false,
+		priority = 1000,
 		config = function()
-			local onedark = require("onedark")
-			onedark.setup({
-				style = "deep",
+			local tokyonight = require("tokyonight")
+			tokyonight.setup({
+				style = "night",
 			})
-			vim.cmd("colorscheme onedark")
+			vim.cmd("colorscheme tokyonight")
 		end,
 	},
 	{
@@ -560,23 +562,6 @@ require("lazy").setup({
 	},
 	{
 		"github/copilot.vim",
-	},
-	{
-		"nvim-neotest/neotest",
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-			"antoinemadec/FixCursorHold.nvim",
-		},
-	},
-	{
-		"utilyre/barbecue.nvim",
-		name = "barbecue",
-		version = "*",
-		dependencies = {
-			"SmiteshP/nvim-navic",
-			"nvim-tree/nvim-web-devicons", -- optional dependency
-		},
-		opts = {},
 	},
 })
 
