@@ -54,7 +54,6 @@ require("lazy").setup({
 			"windwp/nvim-ts-autotag",
 			"JoosepAlviste/nvim-ts-context-commentstring",
 			"EmranMR/tree-sitter-blade",
-			"nvim-treesitter/nvim-treesitter-context",
 		},
 		config = function()
 			local treesitter = require("nvim-treesitter.configs")
@@ -132,7 +131,7 @@ require("lazy").setup({
 				{ silent = true, noremap = true }
 			)
 			vim.keymap.set("n", "<leader>sl", builtin.grep_string, { silent = true, noremap = true })
-			vim.keymap.set("n", "<leader>u", "<cmd>Telescope undo<cr>")
+			vim.keymap.set("n", "<leader>u", "<cmd>Telescope undo<CR>")
 		end,
 	},
 	{
@@ -145,6 +144,7 @@ require("lazy").setup({
 			local mason_lspconfig = require("mason-lspconfig")
 			mason.setup()
 			mason_lspconfig.setup()
+			vim.keymap.set("n", "<leader>M", "<cmd>Mason<CR>")
 		end,
 	},
 	{
@@ -190,6 +190,11 @@ require("lazy").setup({
 				on_attach = on_attach,
 				capabilities = capabilities,
 				filetypes = { "html", "eruby", "blade" },
+			})
+			lspconfig["sqlls"].setup({
+				on_attach = on_attach,
+				capabilities = capabilities,
+				filetypes = { "sql", "mysql", "pgsql" },
 			})
 			lspconfig["clangd"].setup({
 				on_attach = on_attach,
@@ -571,7 +576,21 @@ require("lazy").setup({
 		"github/copilot.vim",
 	},
 	{
-		"tpope/vim-rails",
+		"nvim-neotest/neotest",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"antoinemadec/FixCursorHold.nvim",
+		},
+	},
+	{
+		"utilyre/barbecue.nvim",
+		name = "barbecue",
+		version = "*",
+		dependencies = {
+			"SmiteshP/nvim-navic",
+			"nvim-tree/nvim-web-devicons", -- optional dependency
+		},
+		opts = {},
 	},
 })
 
