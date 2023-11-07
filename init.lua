@@ -150,9 +150,9 @@ require("lazy").setup({
 	{
 		"tpope/vim-commentary",
 	},
-  {
-    "tpope/vim-surround",
-  },
+	{
+		"tpope/vim-surround",
+	},
 	{
 		"neovim/nvim-lspconfig",
 		lazy = false,
@@ -360,7 +360,7 @@ require("lazy").setup({
 			})
 			vim.keymap.set("n", "<leader>gg", "<cmd>Neogit<CR>", { silent = true })
 			vim.keymap.set("n", "<leader>df", "<cmd>DiffviewOpen<CR>", { silent = true })
-      vim.keymap.set("n", "<leader>dq", "<cmd>DiffviewClose<CR>", { silent = true })
+			vim.keymap.set("n", "<leader>dq", "<cmd>DiffviewClose<CR>", { silent = true })
 		end,
 	},
 	{
