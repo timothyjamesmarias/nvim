@@ -117,7 +117,7 @@ require("lazy").setup({
 
 			local builtin = require("telescope.builtin")
 			vim.keymap.set("n", "<leader>ff", builtin.find_files, { silent = true })
-			vim.keymap.set("n", "<leader>fd", builtin.live_grep, { silent = true })
+			vim.keymap.set("n", "<leader>fw", builtin.live_grep, { silent = true })
 			vim.keymap.set("n", "<leader>fb", builtin.buffers, { silent = true })
 			vim.keymap.set("n", "<leader>fh", builtin.help_tags, { silent = true })
 			vim.keymap.set("n", "<leader>sp", builtin.spell_suggest, { silent = true })
@@ -289,6 +289,10 @@ require("lazy").setup({
 				capabilities = capabilities,
 			})
 			lspconfig["gopls"].setup({
+				on_attach = on_attach,
+				capabilities = capabilities,
+			})
+			lspconfig["pyright"].setup({
 				on_attach = on_attach,
 				capabilities = capabilities,
 			})
@@ -534,30 +538,6 @@ require("lazy").setup({
 		"slim-template/vim-slim",
 		config = function()
 			vim.cmd("au BufNewFile,BufRead *.slim set filetype=slim")
-		end,
-	},
-	{
-		"folke/trouble.nvim",
-		config = function()
-			require("trouble").setup({})
-			vim.keymap.set("n", "<leader>xx", function()
-				require("trouble").toggle()
-			end)
-			vim.keymap.set("n", "<leader>xw", function()
-				require("trouble").open("workspace_diagnostics")
-			end)
-			vim.keymap.set("n", "<leader>xd", function()
-				require("trouble").open("document_diagnostics")
-			end)
-			vim.keymap.set("n", "<leader>xq", function()
-				require("trouble").open("quickfix")
-			end)
-			vim.keymap.set("n", "<leader>xl", function()
-				require("trouble").open("loclist")
-			end)
-			vim.keymap.set("n", "gR", function()
-				require("trouble").open("lsp_references")
-			end)
 		end,
 	},
 	{
