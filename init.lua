@@ -447,6 +447,9 @@ require("lazy").setup({
 					ignore_whitespace = false,
 				},
 			})
+			vim.keymap.set("n", "<leader>hn", gitsigns.next_hunk, { silent = true })
+			vim.keymap.set("n", "<leader>hp", gitsigns.prev_hunk, { silent = true })
+			vim.keymap.set("n", "<leader>hv", gitsigns.preview_hunk, { silent = true })
 		end,
 	},
 	{
