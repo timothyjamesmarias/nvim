@@ -500,18 +500,6 @@ require("lazy").setup({
 		end,
 	},
 	{
-		"mfussenegger/nvim-dap",
-		dependencies = {
-			"rcarriga/nvim-dap-ui",
-			"theHamsta/nvim-dap-virtual-text",
-			"mfussenegger/nvim-dap-python",
-			"nvim-telescope/telescope.nvim",
-			"nvim-telescope/telescope-dap.nvim",
-			"suketa/nvim-dap-ruby",
-		},
-		config = function() end,
-	},
-	{
 		"rmagatti/session-lens",
 		dependenceis = {
 			"rmagatti/auto-session",
