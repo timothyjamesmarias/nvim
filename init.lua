@@ -101,13 +101,13 @@ require("lazy").setup({
 			local telescope = require("telescope")
 			telescope.setup({
 				defaults = {
-          layout_config = {
-            prompt_position = "top",
-            width = 0.9,
-            height = 0.6,
-          },
-          layout_strategy = "center",
-          border = false
+					layout_config = {
+						prompt_position = "top",
+						width = 0.9,
+						height = 0.6,
+					},
+					layout_strategy = "center",
+					border = false,
 				},
 				pickers = {},
 				extensions = {
@@ -566,6 +566,39 @@ require("lazy").setup({
 	},
 	{
 		"github/copilot.vim",
+	},
+	{
+		"nvim-neotest/neotest",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"antoinemadec/FixCursorHold.nvim",
+			"olimorris/neotest-rspec",
+			"marilari88/neotest-vitest",
+			"nvim-neotest/neotest-python",
+			"rouge8/neotest-rust",
+		},
+		config = function()
+			local neotest = require("neotest")
+			neotest.setup({
+				adapters = {
+					require("neotest-rspec")({
+						rspec_cmd = function()
+							return vim.tbl_flatten({
+								"bundle",
+								"exec",
+								"rspec",
+							})
+						end,
+					}),
+					require("neotest-python"),
+					require("neotest-vitest"),
+					require("neotest-rust"),
+				},
+			})
+		end,
+    vim.keymap.set("n", "<leader>tr", "<cmd>Neotest run run<CR>", { silent = true }),
+    vim.keymap.set("n", "<leader>ts", "<cmd>Neotest run stop<CR>", { silent = true }),
+    vim.keymap.set("n", "<leader>tw",  "<cmd>Neotest watch toggle<CR>", { silent = true }),
 	},
 })
 
