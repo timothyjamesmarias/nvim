@@ -95,10 +95,21 @@ require("lazy").setup({
 			"nvim-treesitter/nvim-treesitter",
 			"stevearc/aerial.nvim",
 			"debugloop/telescope-undo.nvim",
+			"nvim-telescope/telescope-ui-select.nvim",
 		},
 		config = function()
 			local telescope = require("telescope")
 			telescope.setup({
+				defaults = {
+          layout_config = {
+            prompt_position = "top",
+            width = 0.9,
+            height = 0.6,
+          },
+          layout_strategy = "center",
+          border = false
+				},
+				pickers = {},
 				extensions = {
 					fzf = {
 						fuzzy = true,
@@ -109,23 +120,33 @@ require("lazy").setup({
 					aerial = {},
 					undo = {},
 					file_browser = {},
+					ui_select = {
+						require("telescope.themes").get_cursor({
+							results_title = false,
+							previewer = false,
+							border = true,
+						}),
+					},
 				},
 			})
 			telescope.load_extension("fzf")
 			telescope.load_extension("file_browser")
 			telescope.load_extension("aerial")
 			telescope.load_extension("undo")
+			telescope.load_extension("ui-select")
 
 			local builtin = require("telescope.builtin")
 			vim.keymap.set("n", "<leader>ff", builtin.find_files, { silent = true })
 			vim.keymap.set("n", "<leader>fw", builtin.live_grep, { silent = true })
+			vim.keymap.set("n", "<leader>fk", builtin.keymaps, { silent = true })
+			vim.keymap.set("n", "<leader>fp", builtin.pickers, { silent = true })
 			vim.keymap.set("n", "<leader>fcc", builtin.commands, { silent = true })
 			vim.keymap.set("n", "<leader>fca", builtin.autocommands, { silent = true })
 			vim.keymap.set("n", "<leader>fb", builtin.buffers, { silent = true })
 			vim.keymap.set("n", "<leader>fh", builtin.help_tags, { silent = true })
 			vim.keymap.set("n", "<leader>sp", builtin.spell_suggest, { silent = true })
 			vim.keymap.set("n", "<leader>fn", "<cmd>Telescope file_browser<CR>", { silent = true, noremap = true })
-			vim.keymap.set("n", "<leader>tg", "<cmd>Telescope aerial<CR>", { silent = true, noremap = true })
+			vim.keymap.set("n", "<leader>fa", "<cmd>Telescope aerial<CR>", { silent = true, noremap = true })
 			vim.keymap.set(
 				"n",
 				"<leader>fl",
@@ -169,6 +190,7 @@ require("lazy").setup({
 			"saadparwaiz1/cmp_luasnip",
 			"L3MON4D3/LuaSnip",
 			"onsails/lspkind-nvim",
+			"nvim-telescope/telescope.nvim",
 		},
 		config = function()
 			local lspconfig = require("lspconfig")
