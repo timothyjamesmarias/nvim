@@ -40,7 +40,7 @@ require("lazy").setup({
 		config = function()
 			local tokyonight = require("tokyonight")
 			tokyonight.setup({
-				style = "night",
+				style = "storm",
 			})
 			vim.cmd("colorscheme tokyonight")
 		end,
@@ -108,6 +108,7 @@ require("lazy").setup({
 					},
 					aerial = {},
 					undo = {},
+					file_browser = {},
 				},
 			})
 			telescope.load_extension("fzf")
@@ -118,6 +119,8 @@ require("lazy").setup({
 			local builtin = require("telescope.builtin")
 			vim.keymap.set("n", "<leader>ff", builtin.find_files, { silent = true })
 			vim.keymap.set("n", "<leader>fw", builtin.live_grep, { silent = true })
+			vim.keymap.set("n", "<leader>fcc", builtin.commands, { silent = true })
+			vim.keymap.set("n", "<leader>fca", builtin.autocommands, { silent = true })
 			vim.keymap.set("n", "<leader>fb", builtin.buffers, { silent = true })
 			vim.keymap.set("n", "<leader>fh", builtin.help_tags, { silent = true })
 			vim.keymap.set("n", "<leader>sp", builtin.spell_suggest, { silent = true })
@@ -490,6 +493,14 @@ require("lazy").setup({
 						args = {
 							"--check",
 						},
+					},
+					python = {
+						exe = "black",
+						args = {
+							"--quiet",
+							"-",
+						},
+						stdin = true,
 					},
 					["*"] = {
 						require("formatter.filetypes.any").remove_trailing_whitespace,
