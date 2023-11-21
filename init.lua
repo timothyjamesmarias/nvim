@@ -12,7 +12,6 @@ vim.keymap.set("n", "N", "Nzzzv", { silent = true })
 vim.keymap.set("n", "<leader>vv", "<cmd>vsp<CR>", { silent = true })
 vim.keymap.set("n", "<leader>hh", "<cmd>sp<CR>", { silent = true })
 vim.keymap.set("n", "<leader>sf", "/")
--- window navigation; requires the syumbols for mac keyboards to use meta/alt
 vim.keymap.set("n", "<C-h>", "<C-w>h<CR>", { silent = true })
 vim.keymap.set("n", "<C-j>", "<C-w>j<CR>", { silent = true })
 vim.keymap.set("n", "<C-k>", "<C-w>k<CR>", { silent = true })
@@ -40,7 +39,7 @@ require("lazy").setup({
 		config = function()
 			local tokyonight = require("tokyonight")
 			tokyonight.setup({
-				style = "storm",
+				style = "night",
 			})
 			vim.cmd("colorscheme tokyonight")
 		end,
@@ -53,6 +52,7 @@ require("lazy").setup({
 			"windwp/nvim-ts-autotag",
 			"JoosepAlviste/nvim-ts-context-commentstring",
 			"EmranMR/tree-sitter-blade",
+			"RRethy/nvim-treesitter-endwise",
 		},
 		config = function()
 			local treesitter = require("nvim-treesitter.configs")
@@ -66,6 +66,9 @@ require("lazy").setup({
 				ensure_installed = "all",
 				auto_install = true,
 				context_commentstring = {
+					enable = true,
+				},
+				endwise = {
 					enable = true,
 				},
 			})
@@ -372,23 +375,12 @@ require("lazy").setup({
 		opts = {},
 	},
 	{
-		"NeogitOrg/neogit",
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-			"nvim-telescope/telescope.nvim",
-			"sindrets/diffview.nvim",
-			"ibhagwan/fzf-lua",
-		},
+		"sindrets/diffview.nvim",
 		config = function()
-			local neogit = require("neogit")
-			neogit.setup({
-				integrations = {
-					diffview = true,
-				},
-			})
-			vim.keymap.set("n", "<leader>gg", "<cmd>Neogit<CR>", { silent = true })
-			vim.keymap.set("n", "<leader>df", "<cmd>DiffviewOpen<CR>", { silent = true })
-			vim.keymap.set("n", "<leader>dq", "<cmd>DiffviewClose<CR>", { silent = true })
+			local diffview = require("diffview")
+			diffview.setup()
+			vim.keymap.set("n", "<leader>df", diffview.open, { silent = true })
+			vim.keymap.set("n", "<leader>dq", diffview.close, { silent = true })
 		end,
 	},
 	{
@@ -566,39 +558,6 @@ require("lazy").setup({
 	},
 	{
 		"github/copilot.vim",
-	},
-	{
-		"nvim-neotest/neotest",
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-			"antoinemadec/FixCursorHold.nvim",
-			"olimorris/neotest-rspec",
-			"marilari88/neotest-vitest",
-			"nvim-neotest/neotest-python",
-			"rouge8/neotest-rust",
-		},
-		config = function()
-			local neotest = require("neotest")
-			neotest.setup({
-				adapters = {
-					require("neotest-rspec")({
-						rspec_cmd = function()
-							return vim.tbl_flatten({
-								"bundle",
-								"exec",
-								"rspec",
-							})
-						end,
-					}),
-					require("neotest-python"),
-					require("neotest-vitest"),
-					require("neotest-rust"),
-				},
-			})
-		end,
-    vim.keymap.set("n", "<leader>tr", "<cmd>Neotest run run<CR>", { silent = true }),
-    vim.keymap.set("n", "<leader>ts", "<cmd>Neotest run stop<CR>", { silent = true }),
-    vim.keymap.set("n", "<leader>tw",  "<cmd>Neotest watch toggle<CR>", { silent = true }),
 	},
 })
 
