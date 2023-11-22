@@ -551,12 +551,6 @@ require("lazy").setup({
 		end,
 	},
 	{
-		"slim-template/vim-slim",
-		config = function()
-			vim.cmd("au BufNewFile,BufRead *.slim set filetype=slim")
-		end,
-	},
-	{
 		"github/copilot.vim",
 	},
 })
