@@ -504,7 +504,7 @@ require("lazy").setup({
 					},
 				},
 			})
-			vim.keymap.set("n", "<leader>fm", "<cmd>Format<CR>", { silent = true })
+			vim.keymap.set("n", "<leader>fm", "<cmd>Format<CR>", { silent = false })
 		end,
 	},
 	{
@@ -532,9 +532,6 @@ require("lazy").setup({
 			session_lens.setup({})
 			vim.keymap.set("n", "<leader>se", "<cmd>Telescope session-lens search_session<CR>")
 		end,
-	},
-	{
-		"github/copilot.vim",
 	},
 })
 
