@@ -12,10 +12,6 @@ vim.keymap.set("n", "N", "Nzzzv", { silent = true })
 vim.keymap.set("n", "<leader>vv", "<cmd>vsp<CR>", { silent = true })
 vim.keymap.set("n", "<leader>hh", "<cmd>sp<CR>", { silent = true })
 vim.keymap.set("n", "<leader>sf", "/")
-vim.keymap.set("n", "<C-h>", "<C-w>h<CR>", { silent = true })
-vim.keymap.set("n", "<C-j>", "<C-w>j<CR>", { silent = true })
-vim.keymap.set("n", "<C-k>", "<C-w>k<CR>", { silent = true })
-vim.keymap.set("n", "<C-l>", "<C-w>l<CR>", { silent = true })
 
 -- plugins
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -531,6 +527,23 @@ require("lazy").setup({
 			})
 			session_lens.setup({})
 			vim.keymap.set("n", "<leader>se", "<cmd>Telescope session-lens search_session<CR>")
+		end,
+	},
+	{
+		"alexghergh/nvim-tmux-navigation",
+		config = function()
+			local nvim_tmux_nav = require("nvim-tmux-navigation")
+			nvim_tmux_nav.setup({
+				disable_when_zoomed = true,
+				keybindings = {
+					left = "<C-h>",
+					down = "<C-j>",
+					up = "<C-k>",
+					right = "<C-l>",
+					last_active = "<C-\\>",
+					next = "<C-Space>",
+				},
+			})
 		end,
 	},
 })
