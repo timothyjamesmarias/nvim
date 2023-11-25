@@ -215,7 +215,7 @@ require("lazy").setup({
 			lspconfig["html"].setup({
 				on_attach = on_attach,
 				capabilities = capabilities,
-				filetypes = { "html", "blade" },
+				filetypes = { "html", "eruby", "blade" },
 			})
 			lspconfig["sqlls"].setup({
 				on_attach = on_attach,
@@ -260,6 +260,7 @@ require("lazy").setup({
 				capabilities = capabilities,
 				filetypes = {
 					"html",
+					"eruby",
 					"blade",
 					"vue",
 					"javascript",
@@ -276,6 +277,7 @@ require("lazy").setup({
 					"css",
 					"scss",
 					"less",
+					"eruby",
 					"slim",
 					"blade",
 					"vue",
@@ -284,6 +286,11 @@ require("lazy").setup({
 					"javascriptreact",
 					"typescriptreact",
 				},
+			})
+			lspconfig["solargraph"].setup({
+				on_attach = on_attach,
+				capabilities = capabilities,
+				filetypes = { "ruby", "eruby", "rake", "slim" },
 			})
 			lspconfig["bashls"].setup({
 				on_attach = on_attach,
@@ -465,6 +472,16 @@ require("lazy").setup({
 			local util = require("formatter.util")
 			formatter.setup({
 				filetype = {
+					ruby = {
+						require("formatter.filetypes.ruby").standardrb,
+						function()
+							return {
+								exe = "standardrb",
+								args = { "--fix" },
+								stdin = true,
+							}
+						end,
+					},
 					lua = {
 						require("formatter.filetypes.lua").stylua,
 						function()
