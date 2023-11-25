@@ -105,8 +105,13 @@ require("lazy").setup({
 						width = 0.9,
 						height = 0.6,
 					},
+					sorting_strategy = "ascending",
 					layout_strategy = "center",
 					border = false,
+          hidden = true,
+					file_ignore_patterns = {
+						".git/",
+					},
 				},
 				pickers = {},
 				extensions = {
@@ -146,6 +151,7 @@ require("lazy").setup({
 			vim.keymap.set("n", "<leader>sp", builtin.spell_suggest, { silent = true })
 			vim.keymap.set("n", "<leader>fn", "<cmd>Telescope file_browser<CR>", { silent = true, noremap = true })
 			vim.keymap.set("n", "<leader>fa", "<cmd>Telescope aerial<CR>", { silent = true, noremap = true })
+			vim.keymap.set("n", "<leader>tg", builtin.tagstack, { silent = true })
 			vim.keymap.set(
 				"n",
 				"<leader>fl",
