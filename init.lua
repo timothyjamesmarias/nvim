@@ -141,6 +141,7 @@ require("lazy").setup({
 
 			local builtin = require("telescope.builtin")
 			vim.keymap.set("n", "<leader>ff", builtin.find_files, { silent = true })
+			vim.keymap.set("n", "<leader>fg", builtin.git_commits, { silent = true })
 			vim.keymap.set("n", "<leader>fw", builtin.live_grep, { silent = true })
 			vim.keymap.set("n", "<leader>fk", builtin.keymaps, { silent = true })
 			vim.keymap.set("n", "<leader>fp", builtin.pickers, { silent = true })
