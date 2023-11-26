@@ -108,7 +108,7 @@ require("lazy").setup({
 					sorting_strategy = "ascending",
 					layout_strategy = "center",
 					border = false,
-          hidden = true,
+					hidden = true,
 					file_ignore_patterns = {
 						".git/",
 					},
@@ -568,6 +568,12 @@ require("lazy").setup({
 					next = "<C-Space>",
 				},
 			})
+		end,
+	},
+	{
+		"slim-template/vim-slim",
+		config = function()
+			vim.cmd("au BufNewFile,BufRead *.slim set filetype=slim")
 		end,
 	},
 })
